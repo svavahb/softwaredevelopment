@@ -18,7 +18,7 @@ public class dbHelper {
 
     public String[] runQuery(String queryStr, String[] params) {
 
-        return {"Hilton", "Grand"};
+        return params;
     }
 
     public void setParams(String[] newParams) {

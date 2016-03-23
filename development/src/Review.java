@@ -7,6 +7,11 @@ public class Review {
     private int helpfulCount;
     private String review;
     private double userRating;
+    private int id;
+
+    public Review(int id) {
+        this.id = id;
+    }
 
     public String getUser() {
         return user;

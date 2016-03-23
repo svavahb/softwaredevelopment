@@ -15,8 +15,8 @@ public class Booking {
     private Hotel hotel;
 
     //Smiður
-    public Booking() {
-
+    public Booking( int id) {
+        this.id = id;
     }
 
     public int getId() {

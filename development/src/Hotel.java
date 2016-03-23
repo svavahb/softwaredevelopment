@@ -5,6 +5,7 @@ import java.util.Date;
  */
 public class Hotel {
     private Review[] reviews;
+    private int id;
     private String name;
     private String address;
     private String type;
@@ -18,6 +19,10 @@ public class Hotel {
     private double avgPrice;
     private Date checkoutTime;
     //private DayTrip[] dayTours;
+
+    public Hotel(int id) {
+        this.id = id;
+    }
 
     public Review[] getReviews() {
         return reviews;

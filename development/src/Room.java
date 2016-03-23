@@ -6,9 +6,14 @@ public class Room {
     private double sizeOfRoom;
     private String typeOfBathroom;
     private int roomNumber;
+    private in id;
     private int maxGuests;
     private String description;
     private int roomPrice;
+
+    public Room(int id) {
+        this.id = id;
+    }
 
     public int getNumberOfBeds() {
         return numberOfBeds;

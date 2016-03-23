@@ -7,7 +7,12 @@ public class HotelController {
     private Hotel[] hotels;
 
     public Hotel getHotel(String name) {
-        return null;
+
+        dbHelper dbh = new dbHelper();
+        results = dbh.runQuery("SELECT * FROM hotel WHERE name=$1", {"Hilton", 0});
+        Hotel hotel = new Hotel(results[1]);
+        hotel.setName(results[0]);
+        return hotel;
     }
 
     public Hotel[] getAllHotels() {

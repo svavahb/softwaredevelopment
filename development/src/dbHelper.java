@@ -12,8 +12,9 @@ public class dbHelper {
     private String saveRoomStr;
     private String[] params;
 
-    public void runQuery(String queryStr, String[] params) {
-        return;
+    public String[] runQuery(String queryStr, String[] params) {
+
+        return {"Hilton", "Grand"};
     }
 
     public void setParams(String[] newParams) {

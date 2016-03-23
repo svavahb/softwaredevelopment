@@ -14,6 +14,11 @@ public class Booking {
     private Room[] rooms;
     private Hotel hotel;
 
+    //Smiður
+    public Booking() {
+
+    }
+
     public int getId() {
         return id;
     }

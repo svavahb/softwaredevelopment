@@ -7,7 +7,7 @@ Verkefni í Þróun hugbúnaðar HÍ
 
 CREATE TABLE public.booking
 (
-  id integer NOT NULL DEFAULT nextval('booking_id_seq'::regclass),
+  id serial,
   hotelid integer,
   roomid integer,
   phonenumber text,
@@ -44,7 +44,7 @@ CREATE TABLE public.hotel
   starcount double precision,
   avgprice double precision,
   checkouttime text,
-  id integer NOT NULL DEFAULT nextval('hotel_id_seq'::regclass),
+  id serial,
   tags text[],
   CONSTRAINT hotel_pkey PRIMARY KEY (id)
 )
@@ -60,7 +60,7 @@ ALTER TABLE public.hotel
 
 CREATE TABLE public.review
 (
-  id integer NOT NULL DEFAULT nextval('review_id_seq'::regclass),
+  id serial,
   hotelid integer,
   username text,
   datewritten date,
@@ -84,7 +84,7 @@ ALTER TABLE public.review
 
 CREATE TABLE public.room
 (
-  id integer NOT NULL DEFAULT nextval('room_id_seq'::regclass),
+  id serial,
   hotelid integer,
   numberofbeds integer,
   sizeofroom double precision,

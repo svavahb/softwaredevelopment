@@ -45,6 +45,6 @@ public class HotelController {
         return null;
     }
 
-    public void hotelController() {
+    public HotelController() {
     }
 }

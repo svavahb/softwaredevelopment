@@ -36,7 +36,7 @@ public class BookingControllerTest {
 
     @org.junit.Test
     public void testgetBookingsByCustomer() throws Exception {
-        Booking[] pallibook = getBookingsByCustomer("palli");
+        Booking[] pallibook = bcontroller.getBookingsByCustomer("palli");
         assertNotNull(pallibook);
     }
 }

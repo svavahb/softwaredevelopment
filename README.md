@@ -1,72 +1,106 @@
 # softwaredevelopment
 Verkefni í Þróun hugbúnaðar HÍ
 
+-- Table: public.booking
+
+-- DROP TABLE public.booking;
+
 CREATE TABLE public.booking
 (
-  id integer NOT NULL DEFAULT nextval('"Booking_id_seq"'::regclass),
-  "hotelId" integer NOT NULL DEFAULT nextval('"Booking_hotelId_seq"'::regclass),
-  "roomId" integer NOT NULL DEFAULT nextval('"Booking_roomId_seq"'::regclass),
-  "phoneNumber" text,
-  "costumerName" text,
+  id integer NOT NULL DEFAULT nextval('booking_id_seq'::regclass),
+  hotelid integer,
+  roomid integer,
+  phonenumber text,
+  costumername text,
   email text,
-  "creditCardNumber" text,
-  "startDate" date,
-  "endDate" date,
-  CONSTRAINT "Booking_pkey" PRIMARY KEY (id),
-  CONSTRAINT "Booking_hotelId_fkey" FOREIGN KEY ("hotelId")
-      REFERENCES public."Hotel" (id) MATCH SIMPLE
+  creditcardnumber text,
+  startdate date,
+  enddate date,
+  CONSTRAINT booking_pkey PRIMARY KEY (id),
+  CONSTRAINT booking_hotelid_fkey FOREIGN KEY (hotelid)
+      REFERENCES public.hotel (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "Booking_roomId_fkey" FOREIGN KEY ("roomId")
-      REFERENCES public."Room" (id) MATCH SIMPLE
+  CONSTRAINT booking_roomid_fkey FOREIGN KEY (roomid)
+      REFERENCES public.room (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.booking
+  OWNER TO postgres;
+
+-- Table: public.hotel
+
+-- DROP TABLE public.hotel;
 
 CREATE TABLE public.hotel
 (
-  name text,
+  hotelname text,
   address text,
-  type text,
+  typeofhotel text,
   description text,
-  "phoneNumber" text,
-  "starCount" double precision,
-  rating double precision,
-  "numberOfRooms" integer,
-  "avgPrice" double precision,
-  "checkOutTime" date,
-  id integer NOT NULL DEFAULT nextval('"Hotel_hotelId_seq"'::regclass),
+  phonenumber text,
+  starcount double precision,
+  avgprice double precision,
+  checkouttime text,
+  id integer NOT NULL DEFAULT nextval('hotel_id_seq'::regclass),
   tags text[],
-  CONSTRAINT "Hotel_pkey" PRIMARY KEY (id)
+  CONSTRAINT hotel_pkey PRIMARY KEY (id)
 )
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.hotel
+  OWNER TO postgres;
+
+-- Table: public.review
+
+-- DROP TABLE public.review;
 
 CREATE TABLE public.review
 (
-  id integer NOT NULL DEFAULT nextval('"Review_id_seq"'::regclass),
-  "hotelId" integer NOT NULL DEFAULT nextval('"Review_hotelId_seq"'::regclass),
-  "user" text,
-  date date,
-  "helpCount" integer,
+  id integer NOT NULL DEFAULT nextval('review_id_seq'::regclass),
+  hotelid integer,
+  username text,
+  datewritten date,
+  helpcount integer,
   review text,
-  "userRating" double precision,
-  CONSTRAINT "Review_pkey" PRIMARY KEY (id),
-  CONSTRAINT "Review_hotelId_fkey" FOREIGN KEY ("hotelId")
+  userrating double precision,
+  CONSTRAINT review_pkey PRIMARY KEY (id),
+  CONSTRAINT review_hotelid_fkey FOREIGN KEY (hotelid)
       REFERENCES public.hotel (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.review
+  OWNER TO postgres;
+
+-- Table: public.room
+
+-- DROP TABLE public.room;
 
 CREATE TABLE public.room
 (
-  id integer NOT NULL DEFAULT nextval('"Room_roomId_seq"'::regclass),
-  "hotelId" integer NOT NULL DEFAULT nextval('"Room_hotelId_seq"'::regclass),
-  "numberOfBeds" integer,
-  "sizeOfRoom" double precision,
-  "typeOfBathroom" text,
-  "roomNumber" integer,
-  "maxGuests" integer,
+  id integer NOT NULL DEFAULT nextval('room_id_seq'::regclass),
+  hotelid integer,
+  numberofbeds integer,
+  sizeofroom double precision,
+  typeofbathroom text,
+  roomnumber integer,
+  maxguests integer,
   description text,
-  "roomPrice" double precision,
-  CONSTRAINT "Room_pkey" PRIMARY KEY (id),
-  CONSTRAINT "Room_hotelId_fkey" FOREIGN KEY ("hotelId")
+  roomprice double precision,
+  CONSTRAINT room_pkey PRIMARY KEY (id),
+  CONSTRAINT room_hotelid_fkey FOREIGN KEY (hotelid)
       REFERENCES public.hotel (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.room
+  OWNER TO postgres;
 

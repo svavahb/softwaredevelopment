@@ -34,10 +34,7 @@ public class HotelController {
     public void removeRoom(Hotel hotel, Room room) {
     }
 
-    public void updateRoom(Hotel hotel, Room room) {
-    }
-
-    public Hotel findHotelWithAvailableRooms(Date startDate, Date endDate, int guestCount, String location, double minimumStars, int maxPrice) {
+    public Hotel[] findHotelWithAvailableRooms(Date startDate, Date endDate, int guestCount, double minimumStars, int maxPrice) {
         return null;
     }
 

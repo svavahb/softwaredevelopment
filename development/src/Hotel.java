@@ -14,7 +14,6 @@ public class Hotel {
     private double starCount;
     private double rating; //????
     private Room[] rooms;
-    private int numberOfRooms;
     private String tags;
     private double avgPrice;
     private Date checkoutTime;
@@ -97,11 +96,7 @@ public class Hotel {
     }
 
     public int getNumberOfRooms() {
-        return numberOfRooms;
-    }
-
-    public void setNumberOfRooms(int numberOfRooms) {
-        this.numberOfRooms = numberOfRooms;
+        return rooms.length;
     }
 
     public String getTags() {

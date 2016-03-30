@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
  */
 public class HotelControllerTest {
 
+    //muna gera mock Room!
+
     @org.junit.Before
     public void setUp() throws Exception {
         HotelController hcontroller = new HotelController();
@@ -21,6 +23,20 @@ public class HotelControllerTest {
     public void testGetHotel() throws Exception {
         Hotel hilton = hcontroller.getHotel("Hilton");
         assertEquals("Hilton", hilton.getName());
+    }
+
+    //Tékka hvort það skili error fyrir of stutt input
+    @org.junit.Test(expected=IllegalArgumentException.class)
+    public void testGetHotelNotTooShort() throws Expection {
+        String input = "h";
+        Hotel testhotel = hcontroller.getHotel(input);
+    }
+
+    //Tékka hvort það skili error fyrir of langt input
+    @org.junit.Test(expected=IllegalArgumentException.class)
+    public void testGetHotelNotTooShort() throws Expection {
+        String input = "aaaabbbbccccddddeeeeffffiiiikk";
+        Hotel testhotel = hcontroller.getHotel(input);
     }
 
     @org.junit.Test

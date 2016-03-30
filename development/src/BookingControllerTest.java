@@ -9,7 +9,10 @@ public class BookingControllerTest {
     public void setUp() throws Exception {
         BookingController bcontroller = new BookingController();
         Booking book = new Booking(1);
+        book.setEmail("palli@gmail.com");
         book.setCustomerName("palli");
+        book.setStartDate(Date(2016,05,19));
+        book.setEndDate(Date(2016,05,20));
     }
 
     @org.junit.After
@@ -26,17 +29,24 @@ public class BookingControllerTest {
     public void testgetBooking() throws Exception {
         Booking btest = bcontroller.getBooking(1);
         assertNotNull(btest);
+        assertEquals(btest.getId(), 1);
+        assertEquals(btest.getCustomerName(),"palli");
+        assertEquals(btest.getEmail(),"palli@gmail.com");
+        assertEquals(btest.getStartDate(),Date(2016,05,19));
+        assertEquals(btest.getEndDate(),Date(2016,05,20));
     }
 
     @org.junit.Test
     public void testgetBookings() throws Exception {
         Booking[] bfylki = bcontroller.getBookings();
         assertNotNull(bfylki);
+        assertEqual(bfylki[0].getId(), 1);
     }
 
     @org.junit.Test
     public void testgetBookingsByCustomer() throws Exception {
         Booking[] pallibook = bcontroller.getBookingsByCustomer("palli");
         assertNotNull(pallibook);
+        assertEquals(pallibook[0].getCustomerName(),"palli");
     }
 }

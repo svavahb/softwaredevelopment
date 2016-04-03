@@ -1,7 +1,7 @@
  import java.util.Date;
 
 /**
- * Created by arnorv on 16/03/16.
+ * Created by Svava Hildur on 16/03/16.
  */
 public class HotelController {
     private Hotel[] hotels;

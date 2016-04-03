@@ -1,5 +1,5 @@
 /**
- * Created by arnorv on 16/03/16.
+ * Created by Svava Hildur on 16/03/16.
  */
 public class Review {
     private String user;

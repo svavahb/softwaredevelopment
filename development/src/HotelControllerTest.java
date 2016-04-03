@@ -5,17 +5,17 @@ import static org.junit.Assert.*;
  */
 public class HotelControllerTest {
 
-    //muna gera mock Room!
-
     @org.junit.Before
     public void setUp() throws Exception {
         HotelController hcontroller = new HotelController();
         Hotel testing = new Hotel(7);
-        Room roomtest = new Room(1);
+        hcontroller.saveHotel(testing);
+        MockRoom roomtest = new MockRoom(1);
     }
 
     @org.junit.After
     public void tearDown() throws Exception {
+        hcontroller.deleteHotel(testing);
         hcontroller = null;
     }
 
@@ -34,7 +34,7 @@ public class HotelControllerTest {
 
     //Tékka hvort það skili error fyrir of langt input
     @org.junit.Test(expected=IllegalArgumentException.class)
-    public void testGetHotelNotTooShort() throws Expection {
+    public void testGetHotelNotTooLong() throws Expection {
         String input = "aaaabbbbccccddddeeeeffffiiiikk";
         Hotel testhotel = hcontroller.getHotel(input);
     }

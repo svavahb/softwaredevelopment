@@ -1,17 +1,17 @@
 /**
- * Created by arnorv on 16/03/16.
+ * Created by Svava Hildur on 16/03/16.
  */
-public class Room {
+public class MockRoom implements RoomInterface {
     private int numberOfBeds;
     private double sizeOfRoom;
     private String typeOfBathroom;
     private int roomNumber;
-    private in id;
+    private int id;
     private int maxGuests;
     private String description;
     private int roomPrice;
 
-    public Room(int id) {
+    public MockRoom(int id) {
         this.id = id;
     }
 

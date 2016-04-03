@@ -1,5 +1,5 @@
 /**
- * Created by arnorv on 20/03/16.
+ * Created by Svava Hildur on 20/03/16.
  */
 public class dbHelper {
     private String getBookingStr;

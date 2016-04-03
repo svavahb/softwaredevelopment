@@ -13,16 +13,20 @@ public class BookingControllerTest {
         book.setCustomerName("palli");
         book.setStartDate(Date(2016,05,19));
         book.setEndDate(Date(2016,05,20));
+        bcontroller.saveBooking(book);
     }
 
     @org.junit.After
     public void tearDown() throws Exception {
+        bcontroller.deleteBooking(book);
         bcontroller = null;
+
     }
 
-    @org.junit.Test
-    public void testBookingController() throws Exception {
-        assertNotNull(bcontroller);
+    //ath hvort skili error ef við setjum inn streng í getBooking
+    @org.junit.Test(expected=IllegalArgumentException.class)
+    public void testNoStringGetBooking() throws Exception {
+        Booking testbooking = bcontroller.getBooking("a");
     }
 
     @org.junit.Test

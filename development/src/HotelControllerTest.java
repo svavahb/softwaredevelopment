@@ -35,7 +35,7 @@ public class HotelControllerTest {
     //Tékka hvort það skili error fyrir of langt input
     @org.junit.Test(expected=IllegalArgumentException.class)
     public void testGetHotelNotTooLong() throws Expection {
-        String input = "aaaabbbbccccddddeeeeffffiiiikk";
+        String input = "aaaabbbbccccddddeeeeffffiiiikkk";
         Hotel testhotel = hcontroller.getHotel(input);
     }
 

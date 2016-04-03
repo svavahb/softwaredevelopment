@@ -23,10 +23,28 @@ public class BookingControllerTest {
 
     }
 
-    //ath hvort skili error ef við setjum inn streng í getBooking
     @org.junit.Test(expected=IllegalArgumentException.class)
-    public void testNoStringGetBooking() throws Exception {
+    public void testNoEmptyStringGetBooking() throws Exception {
+        Booking testbooking = bcontroller.getBooking("");
+    }
+
+    //ath hvort skili error ef við setjum inn streng með bókstöfum í getBooking
+    @org.junit.Test(expected=IllegalArgumentException.class)
+    public void testNoLettersGetBooking() throws Exception {
         Booking testbooking = bcontroller.getBooking("a");
+    }
+
+    //ath hvort skili error ef við setjum inn streng með táknum í getBooking
+    @org.junit.Test(expected=IllegalArgumentsException.class)
+    public void testNoSpecialCharsGetBooking() throws Exception {
+        Booking testbooking = bcontroller.getBooking(".-/");
+    }
+
+    //ath hvort skili ekki error ef við setjum inn streng með tölum (aðferðin ætti að parsa það yfir í int)
+    @org.junit.Test
+    public void testIntStringGetBooking() throws Exception {
+        Booking testBooking = bcontroller.getBooking("1");
+        assertEquals(testBooking.getId(), 1);
     }
 
     @org.junit.Test

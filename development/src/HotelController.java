@@ -9,7 +9,7 @@ public class HotelController {
     public Hotel getHotel(String name) {
 
         dbHelper dbh = new dbHelper();
-        results = dbh.runQuery("SELECT * FROM hotel WHERE name=$1", {"Hilton", 0});
+        //results = dbh.runQuery("SELECT * FROM hotel WHERE name=$1", {"Hilton", 0});
         Hotel hotel = new Hotel(results[1]);
         hotel.setName(results[0]);
         return hotel;

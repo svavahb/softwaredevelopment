@@ -35,7 +35,7 @@ public class dbHelper {
             stmt = c.createStatement();
             String sql = queryStr;
             result = stmt.executeQuery(sql);
-            stmt.close();
+            //stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -52,7 +52,7 @@ public class dbHelper {
         dbHelper db = new dbHelper();
         ResultSet result = db.runQuery(getBookingStr, new String[]{"bla"});
         while (result.next()) {
-            System.out.println(result.toString());
+            System.out.println(result.getString(1));
         }
     }
 }

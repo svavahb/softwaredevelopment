@@ -13,6 +13,8 @@ public class Booking {
     private Date endDate;
     private Room[] rooms;
     private Hotel hotel;
+    private int hotelId;
+    private int roomId;
 
     //Smiður
     public Booking( int id) {
@@ -26,6 +28,8 @@ public class Booking {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void setHotelId(int id) {this.hotelId = id;}
 
     public int getPhoneNr() {
         return phoneNr;
@@ -74,6 +78,9 @@ public class Booking {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+    public void setHotelId(int id) {this.roomId = id;}
+
 
     public Room[] getRooms() {
         return rooms;

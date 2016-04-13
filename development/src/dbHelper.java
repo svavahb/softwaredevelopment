@@ -4,37 +4,40 @@ import java.sql.*;
  * Created by Svava Hildur on 20/03/16.
  */
 public class dbHelper {
-    private static String getBookingStr;
-    private String saveBookingStr;
-    private String getHotelStr;
-    private String saveHotelStr;
-    private String getReviewStr;
-    private String saveReviewStr;
-    private String getRoomStr;
-    private String saveRoomStr;
-    private String[] params;
 
-    public dbHelper() {
-        //Skrifa alla query strengi hér!! ah
-        getBookingStr = "SELECT * from hotel.public.Hotel WHERE hotelname='blabla'";
-
-    }
-
-    public ResultSet runQuery(String queryStr, String[] params) {
+    public ResultSet runQuery(String queryStr, Object[] params) {
 
         Connection c = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         ResultSet result = null;
         try {
             Class.forName("org.postgresql.Driver");
             c = DriverManager
                     .getConnection("jdbc:postgresql://localhost:5432/hotel",
-                            "postgres", "rugludallur");
+                            "postgres", "lalli");
             System.out.println("Opened database successfully");
 
-            stmt = c.createStatement();
-            String sql = queryStr;
-            result = stmt.executeQuery(sql);
+            stmt = c.prepareStatement(queryStr);
+            for(int i=0; i<params.length; i++) {
+                if(params[i].getClass()==Integer.class) {
+                    stmt.setInt(i+1, (Integer) params[i]);
+                }
+                else if(params[i].getClass()==String.class) {
+                    stmt.setString(i+1, (String)params[i]);
+                }
+                else if(params[i].getClass()==Double.class) {
+                    stmt.setDouble(i+1, (Double) params[i]);
+                }
+                else if(params[i].getClass()==Date.class) {
+                    stmt.setDate(i+1, (Date) params[i]);
+                }
+            }
+            if(queryStr.charAt(0)=='S') {
+                result = stmt.executeQuery();
+            }
+            else {
+                stmt.executeUpdate();
+            }
             //stmt.close();
             c.close();
         } catch ( Exception e ) {
@@ -42,17 +45,5 @@ public class dbHelper {
             System.exit(0);
         }
         return result;
-    }
-
-    public void setParams(String[] newParams) {
-        params = newParams;
-    }
-
-    public static void main(String[] args) throws SQLException {
-        dbHelper db = new dbHelper();
-        ResultSet result = db.runQuery(getBookingStr, new String[]{"bla"});
-        while (result.next()) {
-            System.out.println(result.getString(1));
-        }
     }
 }

@@ -104,3 +104,20 @@ WITH (
 ALTER TABLE public.room
   OWNER TO postgres;
 
+
+
+
+
+
+
+
+
+  TO DO:
+  * klára dbhelper
+  * klára hotel
+  * klára room
+  * klára review
+  * klára booking
+  * klára hotelcontroller
+  * klára bookingcontroller
+

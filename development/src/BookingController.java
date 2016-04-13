@@ -22,16 +22,15 @@ public class BookingController {
                 results[j-1] = dbresults.getString(j);
             }
         }
-        Booking book = new Booking();
-        book.setId(results[1]);
-        book.setHotelId((int)results[2]);
-        book.setRoomId((int)results[3]);
-        book.setPhoneNr(results[4]);
-        book.setCustomerName(results[5]);
-        book.setEmail(results[6]);
-        book.setCreditCardNr(results[7]);
+        Booking book = new Booking(Integer.parseInt(results[0]));
+        book.setHotelId(Integer.parseInt(results[1]));
+        book.setRoomId(Integer.parseInt(results[2]));
+        book.setPhoneNr(results[3]);
+        book.setCustomerName(results[4]);
+        book.setEmail(results[5]);
+        book.setCreditCardNr(results[6]);
+        book.setStartDate(results[7]);
         book.setStartDate(results[8]);
-        book.setStartDate(results[9]);
         return book;
     }
 

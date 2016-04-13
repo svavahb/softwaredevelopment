@@ -5,7 +5,7 @@ import java.util.Date;
  */
 public class Booking {
     private int id;
-    private int phoneNr;
+    private String phoneNr;
     private String customerName;
     private String email;
     private String creditCardNr;

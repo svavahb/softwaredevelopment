@@ -16,7 +16,7 @@ public class dbHelper {
 
     public dbHelper() {
         //Skrifa alla query strengi hér!! ah
-        getBookingStr = "SELECT * from hotel.public.Hotel WHERE hotelname='blabla'";
+        getBookingStr = "SELECT * from hotel.public.Hotel WHERE hotelname='Hilton'";
 
     }
 
@@ -29,7 +29,7 @@ public class dbHelper {
             Class.forName("org.postgresql.Driver");
             c = DriverManager
                     .getConnection("jdbc:postgresql://localhost:5432/hotel",
-                            "postgres", "rugludallur");
+                            "postgres", "lalli");
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();

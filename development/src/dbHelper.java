@@ -16,7 +16,7 @@ public class dbHelper {
 
     public dbHelper() {
         //Skrifa alla query strengi hér!! ah
-        getBookingStr = "SELECT * from hotel.public.Hotel WHERE hotelname='Hilton'";
+        getBookingStr = "SELECT * from hotel.public.Hotel WHERE hotelname='Bla'";
 
     }
 

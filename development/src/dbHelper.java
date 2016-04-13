@@ -6,7 +6,7 @@ import java.sql.*;
 public class dbHelper {
 
     public ResultSet runQuery(String queryStr, Object[] params) {
-
+        //fokkju
         Connection c = null;
         PreparedStatement stmt = null;
         ResultSet result = null;

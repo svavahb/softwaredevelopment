@@ -16,16 +16,23 @@ public class BookingController {
     public Booking getBooking(int id) {
         Object[] params = {(Integer) id};
         ResultSet dbresults = dbh.runQuery("SELECT * FROM booking WHERE id=?", params);
-        String[] results = new String[8];
+        String[] results = new String[9];
         while(dbresults.next()) {
             for(int j=1; j<9; j++) {
                 results[j-1] = dbresults.getString(j);
             }
         }
         Booking book = new Booking();
-        book.setCustomerName(results[1]);
-        osfrv
-        return results;
+        book.setId(results[1]);
+        book.setHotelId((int)results[2]);
+        book.setRoomId((int)results[3]);
+        book.setPhoneNr(results[4]);
+        book.setCustomerName(results[5]);
+        book.setEmail(results[6]);
+        book.setCreditCardNr(results[7]);
+        book.setStartDate(results[8]);
+        book.setStartDate(results[9]);
+        return book;
     }
 
     public void deleteBooking(int id) {
@@ -38,13 +45,11 @@ public class BookingController {
     }
 
     public Booking[] getBookings(Hotel hotel) {
-        Object[] params = {};
-        ResultSet dbresults =
         return null;
     }
 
     public void saveBooking(Booking booking) {
-        Object[] params = {(Integer) Booking.getHotel().getHotelid(), Booking.getRooms(), Booking.getPhoneNr(), Booking.getCustomerName(), Booking.getEmail(), Booking.getCreditCardNr(), Booking.getStartDate(), Booking.getEndDate()};
+        Object[] params = {(Integer) Booking.getHotel().getId(), Booking.getRooms().getId(), Booking.getPhoneNr(), Booking.getCustomerName(), Booking.getEmail(), Booking.getCreditCardNr(), Booking.getStartDate(), Booking.getEndDate()};
         dbh.runQuery("INSERT INTO hotel(hotelid, roomid, phonenumber, customername, email, creditcardnumber, startdate, enddate) VALUES ('?','?','?','?','?','?','?','?')", params);
     }
 }

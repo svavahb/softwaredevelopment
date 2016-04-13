@@ -79,8 +79,7 @@ public class Booking {
         this.endDate = endDate;
     }
 
-    public void setHotelId(int id) {this.roomId = id;}
-
+    public void setRoomId(int id) {this.roomId = id;}
 
     public Room[] getRooms() {
         return rooms;

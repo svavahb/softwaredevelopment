@@ -1,7 +1,7 @@
 /**
  * Created by Svava Hildur on 16/03/16.
  */
-public class MockRoom implements RoomInterface {
+public class Room {
     private int numberOfBeds;
     private double sizeOfRoom;
     private String typeOfBathroom;
@@ -11,7 +11,7 @@ public class MockRoom implements RoomInterface {
     private String description;
     private int roomPrice;
 
-    public MockRoom(int id) {
+    public Room(int id) {
         this.id = id;
     }
 

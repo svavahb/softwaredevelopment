@@ -1,10 +1,10 @@
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 /**
  * Created by Svava Hildur on 20.3.2016.
  */
 public class BookingControllerTest {
-
+/*
     @org.junit.Before
     public void setUp() throws Exception {
         BookingController bcontroller = new BookingController();
@@ -70,5 +70,5 @@ public class BookingControllerTest {
         Booking[] pallibook = bcontroller.getBookingsByCustomer("palli");
         assertNotNull(pallibook);
         assertEquals(pallibook[0].getCustomerName(),"palli");
-    }
+    }*/
 }

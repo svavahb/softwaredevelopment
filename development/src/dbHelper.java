@@ -1,12 +1,10 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+
 /**
  * Created by Svava Hildur on 20/03/16.
  */
 public class dbHelper {
-    /*private String getBookingStr;
+    private static String getBookingStr;
     private String saveBookingStr;
     private String getHotelStr;
     private String saveHotelStr;
@@ -36,7 +34,7 @@ public class dbHelper {
 
             stmt = c.createStatement();
             String sql = queryStr;
-            result = sstmt.executeUpdate(sql);
+            result = stmt.executeQuery(sql);
             stmt.close();
             c.close();
         } catch ( Exception e ) {
@@ -49,12 +47,12 @@ public class dbHelper {
     public void setParams(String[] newParams) {
         params = newParams;
     }
-*/
-    public static void main(String[] args) {
-        //dbHelper db = new dbHelper();
-        System.out.println("bla");
 
-        //db.runQuery("INSERT INTO hotel.public.Hotel (hotelname) values ('blub')");
-
+    public static void main(String[] args) throws SQLException {
+        dbHelper db = new dbHelper();
+        ResultSet result = db.runQuery(getBookingStr, new String[]{"bla"});
+        while (result.next()) {
+            System.out.println(result.toString());
+        }
     }
 }

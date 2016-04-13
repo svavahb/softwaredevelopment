@@ -27,11 +27,11 @@ public class Booking {
 
     public void setHotelId(int id) {this.hotelId = id;}
 
-    public int getPhoneNr() {
+    public String getPhoneNr() {
         return phoneNr;
     }
 
-    public void setPhoneNr(int phoneNr) {
+    public void setPhoneNr(String phoneNr) {
         this.phoneNr = phoneNr;
     }
 

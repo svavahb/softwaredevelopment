@@ -43,6 +43,6 @@ public class HotelController {
         return null;
     }
 
-    public HotelController() {
+    public void HotelController() {
     }
 }

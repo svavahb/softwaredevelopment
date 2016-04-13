@@ -19,7 +19,7 @@ public class HotelControllerTest {
         hcontroller = null;
     }
 
-    @org.junit.Test
+    @org.junit.After
     public void testGetHotel() throws Exception {
         Hotel hilton = hcontroller.getHotel("Hilton");
         assertEquals("Hilton", hilton.getName());

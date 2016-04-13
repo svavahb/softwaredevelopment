@@ -16,6 +16,8 @@ public class Booking {
     private int hotelId;
     private int roomId;
 
+    //djöfull er halldóra fkn heimsk wow
+
     //Smiður
     public Booking( int id) {
         this.id = id;

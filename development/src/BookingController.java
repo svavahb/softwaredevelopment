@@ -16,7 +16,15 @@ public class BookingController {
     public Booking getBooking(int id) {
         Object[] params = {(Integer) id};
         ResultSet dbresults = dbh.runQuery("SELECT * FROM booking WHERE id=?", params);
-        int[] results = {dbresults};
+        String[] results = new String[8];
+        while(dbresults.next()) {
+            for(int j=1; j<9; j++) {
+                results[j-1] = dbresults.getString(j);
+            }
+        }
+        Booking book = new Booking();
+        book.setCustomerName(results[1]);
+        osfrv
         return results;
     }
 

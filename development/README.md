@@ -120,4 +120,5 @@ svava sökkar
   * klára booking
   * klára hotelcontroller
   * klára bookingcontroller X
+  * bæta við getHotelsByTags
 

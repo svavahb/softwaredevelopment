@@ -1,4 +1,5 @@
 import javax.xml.transform.Result;
+import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
 
@@ -39,11 +40,70 @@ public class BookingController {
         dbh.runQuery("DELETE * FROM hotel WHERE id=?", params);
     }
 
-    public Booking[] getBookingsByCustomer(String customerName) {
-        return null;
+    public Booking[] getBookingsByCustomer(String customerName) throws SQLException {
+        Object[] params = {customerName};
+        ResultSet results = dbh.runQuery("SELECT * FROM booking WHERE customername=?", params);
+        ArrayList<Object[]> resultList = new ArrayList<Object[]>();
+
+        int columnCount = results.getMetaData().getColumnCount();
+
+        while(results.next()) {
+            String[] row = new String[columnCount];
+            for (int i = 0; i < columnCount; i++) {
+                row[i] = results.getString(i + 1);
+            }
+            resultList.add(row);
+        }
+
+        int size = resultList.size();
+        Booking[] bookings = new Booking[size];
+        for (int j = 0; j < size; j++) {
+            Booking book = new Booking(Integer.parseInt((String) resultList.get(j)[0]));
+            book.setHotelId(Integer.parseInt((String) resultList.get(j)[1]));
+            book.setRoomId(Integer.parseInt((String) resultList.get(j)[2]));
+            book.setPhoneNr((String) resultList.get(j)[3]);
+            book.setCustomerName((String) resultList.get(j)[4]);
+            book.setEmail((String) resultList.get(j)[5]);
+            book.setCreditCardNr((String) resultList.get(j)[6]);
+            //book.setStartDate(resultList.get(j)[7]);
+            //book.setStartDate(resultList.get(j)[8]);
+
+            bookings[j] = book;
+
+        }
+        return bookings;
     }
 
-    public Booking[] getBookings(Hotel hotel) {
+    public Booking[] getBookings(Hotel hotel) throws SQLException {
+        Object[] params = {hotel.getId()};
+        ResultSet results = dbh.runQuery("SELECT * FROM booking WHERE hotelid=?", params);
+        ArrayList<Object[]> resultList = new ArrayList<Object[]>();
+
+        int columnCount = results.getMetaData().getColumnCount();
+
+        while(results.next()) {
+            String[] row = new String[columnCount];
+            for (int i = 0; i < columnCount; i++) {
+                row[i] = results.getString(i + 1);
+            }
+            resultList.add(row);
+        }
+
+        int size = resultList.size();
+        Booking[] bookings = new Booking[size];
+        for (int j = 0; j < size; j++) {
+            Booking book = new Booking(Integer.parseInt((String) resultList.get(j)[0]));
+            book.setHotelId(Integer.parseInt((String) resultList.get(j)[1]));
+            book.setRoomId(Integer.parseInt((String) resultList.get(j)[2]));
+            book.setPhoneNr((String) resultList.get(j)[3]);
+            book.setCustomerName((String) resultList.get(j)[4]);
+            book.setEmail((String) resultList.get(j)[5]);
+            book.setCreditCardNr((String) resultList.get(j)[6]);
+            //book.setStartDate(resultList.get(j)[7]);
+            //book.setStartDate(resultList.get(j)[8]);
+
+            bookings[j] = book;
+        }
         return null;
     }
 

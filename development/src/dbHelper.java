@@ -51,7 +51,7 @@ public class dbHelper {
     public static void main(String[] args) throws SQLException {
         dbHelper db = new dbHelper();
         String queryStr = "SELECT * FROM hotel.public.Hotel WHERE hotelname=?";
-        Object[] params = {"hotel nice"};
+        Object[] params = {"Hilton"};
         ArrayList<Array> resultList = new ArrayList<Array>();
         ArrayList<Object[]> bla = new ArrayList<Object[]>();
 

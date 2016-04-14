@@ -71,7 +71,5 @@ public class Room {
         this.roomPrice = roomPrice;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id;}
 }

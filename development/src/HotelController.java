@@ -1,5 +1,5 @@
- import java.sql.ResultSet;
  import java.util.Date;
+ import java.sql.*;
 
 /**
  * Created by Svava Hildur on 16/03/16.
@@ -37,9 +37,9 @@ public class HotelController {
     }
 
     public void giveReview(Hotel hotel, String user, String review, double userRating) {
-        Object[] params = {hotel.getId(), user, new Date(), review, userRating};
-        ResultSet results = dbh.runQuery("INSERT INTO  review(hotelid, username, datewritten, helpcount," +
-                " review, userrating) VALUES(?, ?, ?, 0, ?, ?)", params);
+        Object[] params = {hotel.getId(), "date"};
+       ResultSet results = dbh.runQuery("INSERT INTO  review(hotelid, username, datewritten, helpcount," +
+                " review, userrating) VALUES(?, ?, '0', ?, ?)", params);
     }
 
     public void addRoom(Hotel hotel, Room room) {
@@ -55,7 +55,7 @@ public class HotelController {
         ResultSet results = dbh.runQuery("DELETE FROM room WHERE room.id=?", params);
     }
 
-    public Hotel[] findHotelsWithAvailableRooms(Date startDate, Date endDate, int guestCount, double minimumStars, int maxPrice) {
+    public Hotel[] findHotelWithAvailableRooms(Date startDate, Date endDate, int guestCount, double minimumStars, int maxPrice) {
         return null;
     }
 

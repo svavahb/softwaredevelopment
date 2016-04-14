@@ -13,7 +13,7 @@ public class BookingController {
     public void BookingController() {
     }
 
-    public Booking getBooking(int id) {
+    public Booking getBooking(int id) throws SQLException {
         Object[] params = {(Integer) id};
         ResultSet dbresults = dbh.runQuery("SELECT * FROM booking WHERE id=?", params);
         String[] results = new String[9];
@@ -29,8 +29,8 @@ public class BookingController {
         book.setCustomerName(results[4]);
         book.setEmail(results[5]);
         book.setCreditCardNr(results[6]);
-        book.setStartDate(results[7]);
-        book.setStartDate(results[8]);
+        //book.setStartDate(results[7]);
+        //book.setStartDate(results[8]);
         return book;
     }
 
@@ -48,7 +48,7 @@ public class BookingController {
     }
 
     public void saveBooking(Booking booking) {
-        Object[] params = {(Integer) Booking.getHotel().getId(), Booking.getRooms().getId(), Booking.getPhoneNr(), Booking.getCustomerName(), Booking.getEmail(), Booking.getCreditCardNr(), Booking.getStartDate(), Booking.getEndDate()};
+        Object[] params = {(Integer) Booking.getHotel().getId(), Booking.getRooms()[0].getId(), Booking.getPhoneNr(), Booking.getCustomerName(), Booking.getEmail(), Booking.getCreditCardNr(), Booking.getStartDate(), Booking.getEndDate()};
         dbh.runQuery("INSERT INTO hotel(hotelid, roomid, phonenumber, customername, email, creditcardnumber, startdate, enddate) VALUES ('?','?','?','?','?','?','?','?')", params);
     }
 }

@@ -5,14 +5,14 @@ import java.util.Date;
  */
 public class Booking {
     private int id;
-    private String phoneNr;
-    private String customerName;
-    private String email;
-    private String creditCardNr;
-    private Date startDate;
-    private Date endDate;
-    private Room[] rooms;
-    private Hotel hotel;
+    private static String phoneNr;
+    private static String customerName;
+    private static String email;
+    private static String creditCardNr;
+    private static Date startDate;
+    private static Date endDate;
+    private static Room[] rooms;
+    private static Hotel hotel;
     private int hotelId;
     private int roomId;
 
@@ -29,7 +29,7 @@ public class Booking {
 
     public void setHotelId(int id) {this.hotelId = id;}
 
-    public String getPhoneNr() {
+    public static String getPhoneNr() {
         return phoneNr;
     }
 
@@ -37,7 +37,7 @@ public class Booking {
         this.phoneNr = phoneNr;
     }
 
-    public String getCustomerName() {
+    public static String getCustomerName() {
         return customerName;
     }
 
@@ -45,7 +45,7 @@ public class Booking {
         this.customerName = customerName;
     }
 
-    public String getEmail() {
+    public static String getEmail() {
         return email;
     }
 
@@ -53,7 +53,7 @@ public class Booking {
         this.email = email;
     }
 
-    public String getCreditCardNr() {
+    public static String getCreditCardNr() {
         return creditCardNr;
     }
 
@@ -61,7 +61,7 @@ public class Booking {
         this.creditCardNr = creditCardNr;
     }
 
-    public Date getStartDate() {
+    public static Date getStartDate() {
         return startDate;
     }
 
@@ -69,7 +69,7 @@ public class Booking {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public static Date getEndDate() {
         return endDate;
     }
 
@@ -79,7 +79,7 @@ public class Booking {
 
     public void setRoomId(int id) {this.roomId = id;}
 
-    public Room[] getRooms() {
+    public static Room[] getRooms() {
         return rooms;
     }
 
@@ -87,7 +87,7 @@ public class Booking {
         this.rooms = rooms;
     }
 
-    public Hotel getHotel() {
+    public static Hotel getHotel() {
         return hotel;
     }
 

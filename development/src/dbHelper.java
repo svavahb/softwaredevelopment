@@ -64,7 +64,7 @@ public class dbHelper {
             }
             resultList.add(result.getArray(10));
             bla.add(row);
-            //nfdjbbgd
+            //nfdjbbgdgbgd
         }
         String tmp = resultList.get(0).toString();
         tmp = tmp.substring(1, tmp.length() - 1);

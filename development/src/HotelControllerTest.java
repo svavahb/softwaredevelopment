@@ -9,6 +9,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class HotelControllerTest {
+    /*
     private HotelController hcontroller;
     private Hotel testing;
     private Room roomtest;
@@ -83,5 +84,5 @@ public class HotelControllerTest {
     public void testgetRandomHotelOfTheWeek() throws Exception {
         Hotel testhotel = hcontroller.getRandomHotelOfTheWeek();
         assertNotNull(testhotel);
-    }
+    }*/
 }

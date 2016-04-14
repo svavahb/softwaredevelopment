@@ -69,5 +69,6 @@ public class dbHelper {
         String tmp = resultList.get(0).toString();
         tmp = tmp.substring(1, tmp.length() - 1);
         String[] dot = tmp.split(",");
+        System.out.print(dot[0]);
     }
 }

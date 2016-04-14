@@ -19,7 +19,10 @@ public class dbHelper {
 
             stmt = c.prepareStatement(queryStr);
             for(int i=0; i<params.length; i++) {
-                if(params[i].getClass()==Integer.class) {
+                if(params[i]==null) {
+                    stmt.setNull(i+1, 0);
+                }
+                else if(params[i].getClass()==Integer.class) {
                     stmt.setInt(i+1, (Integer) params[i]);
                 }
                 else if(params[i].getClass()==String.class) {
@@ -42,6 +45,7 @@ public class dbHelper {
             c.close();
         } catch ( Exception e ) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            e.printStackTrace();
             System.exit(0);
         }
         return result;

@@ -70,4 +70,8 @@ public class Room {
     public void setRoomPrice(int roomPrice) {
         this.roomPrice = roomPrice;
     }
+
+    public int getId() {
+        return id;
+    }
 }

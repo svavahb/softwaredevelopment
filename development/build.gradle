@@ -1,11 +1,18 @@
 apply plugin: 'java'
-
-dependencies {
-    testCompile 'junit:junit:4.12'
-}
 apply plugin: 'application'
 apply plugin: "eclipse"
 
 mainClassName = "Main"
 
 sourceSets.main.java.srcDirs = ['src']
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'postgresql:postgresql:9.0-801.jdbc4'
+    compile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.12'
+}
+

@@ -50,4 +50,27 @@ public class dbHelper {
         }
         return result;
     }
+
+    public static void main(String[] args) throws SQLException {
+        dbHelper db = new dbHelper();
+        String queryStr = "SELECT * FROM hotel.public.Hotel WHERE hotelname=?";
+        Object[] params = {"hotel nice"};
+        ArrayList<Array> resultList = new ArrayList<Array>();
+        ArrayList<Object[]> bla = new ArrayList<Object[]>();
+
+        ResultSet result = db.runQuery(queryStr, params);
+        int columnCount = result.getMetaData().getColumnCount();
+        while (result.next()) {
+            String[] row = new String[columnCount];
+            for (int i = 0; i < columnCount - 1; i++) {
+                row[i] = result.getString(i + 1);
+            }
+            resultList.add(result.getArray(10));
+            bla.add(row);
+            //jdskvs
+        }
+        String tmp = resultList.get(0).toString();
+        tmp = tmp.substring(1, tmp.length() - 1);
+        String[] dot = tmp.split(",");
+    }
 }

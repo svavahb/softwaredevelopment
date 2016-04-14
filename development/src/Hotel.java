@@ -127,7 +127,7 @@ public class Hotel {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(String[] tags) {
 
         this.tags = tags;
     }
@@ -142,12 +142,12 @@ public class Hotel {
         this.avgPrice = avgPrice;
     }
 
-    public Date getCheckoutTime() {
+    public String getCheckoutTime() {
 
         return checkoutTime;
     }
 
-    public void setCheckoutTime(Date checkoutTime) {
+    public void setCheckoutTime(String checkoutTime) {
 
         this.checkoutTime = checkoutTime;
     }

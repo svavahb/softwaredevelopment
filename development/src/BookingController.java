@@ -108,7 +108,10 @@ public class BookingController {
     }
 
     public void saveBooking(Booking booking) {
-        Object[] params = {(Integer) Booking.getHotel().getId(), Booking.getRooms()[0].getId(), Booking.getPhoneNr(), Booking.getCustomerName(), Booking.getEmail(), Booking.getCreditCardNr(), Booking.getStartDate(), Booking.getEndDate()};
-        dbh.runQuery("INSERT INTO hotel(hotelid, roomid, phonenumber, customername, email, creditcardnumber, startdate, enddate) VALUES ('?','?','?','?','?','?','?','?')", params);
+        Object[] params = {(Integer) Booking.getHotel().getId(), Booking.getRooms()[0].getId(),
+                Booking.getPhoneNr(), Booking.getCustomerName(), Booking.getEmail(), Booking.getCreditCardNr(), Booking.getStartDate(), Booking.getEndDate()};
+        dbh.runQuery("INSERT INTO hotel(hotelid, roomid, phonenumber, customername, " +
+                "email, creditcardnumber, startdate, enddate) " +
+                "VALUES ('?','?','?','?','?','?','?','?')", params);
     }
 }

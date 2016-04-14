@@ -56,6 +56,7 @@ public class dbHelper {
         ArrayList<Object[]> bla = new ArrayList<Object[]>();
 
         ResultSet result = db.runQuery(queryStr, params);
+
         int columnCount = result.getMetaData().getColumnCount();
         while (result.next()) {
             String[] row = new String[columnCount];

@@ -1,25 +1,56 @@
  import java.util.Date;
  import java.sql.*;
+ import java.util.*;
 
-/**
+ import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.description;
+
+ /**
  * Created by Svava Hildur on 16/03/16.
  */
+
 public class HotelController {
-    private Hotel[] hotels;
-    private dbHelper dbh = new dbHelper();
+     private Hotel[] hotels;
+     private dbHelper dbh = new dbHelper();
 
 
-    public Hotel getHotel(String name) {
-        //results = dbh.runQuery("SELECT * FROM hotel WHERE name=$1", {"Hilton", 0});
-        //Hotel hotel = new Hotel(results[1]);
-        //hotel.setName(results[0]);
-        //return hotel;
-        return new Hotel(2);
+    public Hotel getHotel(String name) throws SQLException {
+        Object[] params = {name};
+        ResultSet dbresults = dbh.runQuery("SELECT * FROM hotel WHERE name=?", params);
+        int columnCount = dbresults.getMetaData().getColumnCount();
+        String[] results = new String[10];
+        ArrayList<Array> taglist = new ArrayList<Array>();
+        while(dbresults.next()) {
+            for(int i=1; i<columnCount-1; i++) {
+                results[i-1] = dbresults.getString(i);
+            }
+            taglist.add(dbresults.getArray(10));
+        }
+        Hotel hotel = new Hotel(Integer.parseInt(results[0]));
+        hotel.setName(results[1]);
+        hotel.setAddress(results[2]);
+        hotel.setType(results[3])
+        hotel.setDescription(results[4]);
+        hotel.setPhoneNumber(results[5]);
+        hotel.setStarCount(Double.parseDouble(results[6]));
+        hotel.setAvgPrice(Double.parseDouble(results[7]));
+        hotel.setCheckoutTime(results[8]);
+        String tmp = taglist.get(0).toString();
+        tmp = tmp.substring(1, tmp.length()-1);
+        String[] tags = tmp.split(",");
+        hotel.setTags(tags);
+
+        return hotel;
+
     }
 
     public Hotel[] getAllHotels() {
+        Object[] params = {(Integer) 1};
+        ResultSet dbresults = dbh.runQuery("SELECT * FROM hotel", params);
+
+
         return null;
     }
+
 
     public void saveHotel(Hotel hotel) {
         Object[] params = {hotel.getName(), hotel.getAddress(), hotel.getType(), hotel.getDescription(), hotel.getPhoneNumber(),
@@ -37,9 +68,9 @@ public class HotelController {
     }
 
     public void giveReview(Hotel hotel, String user, String review, double userRating) {
-        Object[] params = {hotel.getId(), "date"};
-       ResultSet results = dbh.runQuery("INSERT INTO  review(hotelid, username, datewritten, helpcount," +
-                " review, userrating) VALUES(?, ?, '0', ?, ?)", params);
+        Object[] params = {hotel.getId(), user, "date", (Integer) };
+        ResultSet results = dbh.runQuery("INSERT INTO  review(hotelid, username, datewritten, helpcount," +
+                " review, userrating) VALUES(?, ?, 0, ?, ?)", params);
     }
 
     public void addRoom(Hotel hotel, Room room) {
@@ -65,4 +96,8 @@ public class HotelController {
 
     public void HotelController() {
     }
-}
+
+    public Review[] getReviews() {
+        return null;
+    }
+ }

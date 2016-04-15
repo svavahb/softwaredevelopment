@@ -30,8 +30,8 @@ public class BookingController {
         book.setCustomerName(results[4]);
         book.setEmail(results[5]);
         book.setCreditCardNr(results[6]);
-        //book.setStartDate(results[7]);
-        //book.setStartDate(results[8]);
+        book.setStartDate(results[7]);
+        book.setStartDate(results[8]);
         return book;
     }
 
@@ -65,8 +65,8 @@ public class BookingController {
             book.setCustomerName((String) resultList.get(j)[4]);
             book.setEmail((String) resultList.get(j)[5]);
             book.setCreditCardNr((String) resultList.get(j)[6]);
-            //book.setStartDate(resultList.get(j)[7]);
-            //book.setStartDate(resultList.get(j)[8]);
+            book.setStartDate((String) resultList.get(j)[7]);
+            book.setStartDate((String) resultList.get(j)[8]);
 
             bookings[j] = book;
 
@@ -99,8 +99,8 @@ public class BookingController {
             book.setCustomerName((String) resultList.get(j)[4]);
             book.setEmail((String) resultList.get(j)[5]);
             book.setCreditCardNr((String) resultList.get(j)[6]);
-            //book.setStartDate(resultList.get(j)[7]);
-            //book.setStartDate(resultList.get(j)[8]);
+            book.setStartDate((String) resultList.get(j)[7]);
+            book.setStartDate((String) resultList.get(j)[8]);
 
             bookings[j] = book;
         }

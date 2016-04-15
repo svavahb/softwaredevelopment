@@ -9,8 +9,8 @@ public class Booking {
     private static String customerName;
     private static String email;
     private static String creditCardNr;
-    private static Date startDate;
-    private static Date endDate;
+    private static String startDate;
+    private static String endDate;
     private static Room[] rooms;
     private static Hotel hotel;
     private int hotelId;
@@ -61,19 +61,19 @@ public class Booking {
         this.creditCardNr = creditCardNr;
     }
 
-    public static Date getStartDate() {
+    public static String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public static Date getEndDate() {
+    public static String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

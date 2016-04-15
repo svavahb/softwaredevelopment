@@ -2,7 +2,6 @@
  import java.sql.*;
  import java.util.*;
 
- import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.description;
 
  /**
  * Created by Svava Hildur on 16/03/16.
@@ -99,8 +98,8 @@ public class HotelController {
 
     public void giveReview(Hotel hotel, String user, String review, double userRating) {
         Object[] params = {hotel.getId(), user, "date", review, userRating };
-        ResultSet results = dbh.runQuery("INSERT INTO  review(hotelid, username, datewritten, helpcount," +
-                " review, userrating) VALUES(?, ?, ?, 0, ?, ?)", params);
+        ResultSet results = dbh.runQuery("INSERT INTO  review(hotelid, username, helpcount," +
+                " review, userrating, datewritten) VALUES(?, ?, ?, 0, ?, ?)", params);
 
     }
 
@@ -131,4 +130,6 @@ public class HotelController {
     public Review[] getReviews() {
         return null;
     }
+
+
  }

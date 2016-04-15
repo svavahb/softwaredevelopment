@@ -9,7 +9,7 @@
 
 public class HotelController {
      private Hotel[] hotels;
-     private dbHelper dbh = new dbHelper();
+     private dbHelper dbh;
 
 
     public Hotel getHotel(String name) throws SQLException {
@@ -125,6 +125,7 @@ public class HotelController {
     }
 
     public void HotelController() {
+        dbh = new dbHelper();
     }
 
     public Review[] getReviews() {

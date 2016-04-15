@@ -119,6 +119,50 @@ public class HotelController {
         return null;
     }
 
+     public Hotel[] findHotelByTags(String[] tags) throws SQLException {
+         Object[] params = tags;
+         String queryStr = "SELECT * FROM hotel WHERE ? = ANY (tags)";
+         for(int i=1; i<tags.length; i++) {
+             queryStr += " AND ? = ANY (tags) ";
+         }
+         ResultSet result = dbh.runQuery(queryStr, params);
+         ArrayList<String[]> resultList = new ArrayList<String[]>();
+         ArrayList<Array> tagList = new ArrayList<Array>();
+
+         int columnCount = result.getMetaData().getColumnCount();
+         while (result.next()) {
+             String[] row = new String[columnCount];
+             for (int i = 0; i < columnCount - 1; i++) {
+                 row[i] = result.getString(i + 1);
+             }
+             tagList.add(result.getArray(10));
+             resultList.add(row);
+         }
+
+         int size = resultList.size();
+         ArrayList<Hotel> hotels = new ArrayList<Hotel>(size);
+         for(int i = 0; i < size; i++) {
+             String[] row = resultList.get(i);
+             Hotel hotel = new Hotel(Integer.parseInt(row[0]));
+             hotel.setName(row[1]);
+             hotel.setAddress(row[2]);
+             hotel.setType(row[3]);
+             hotel.setDescription(row[4]);
+             hotel.setPhoneNumber(row[5]);
+             hotel.setStarCount(Double.parseDouble(row[6]));
+             hotel.setAvgPrice(Double.parseDouble(row[7]));
+             hotel.setCheckoutTime(row[8]);
+             String tmp = tagList.get(i).toString();
+             tmp = tmp.substring(1, tmp.length()-1);
+             String[] tagstmp = tmp.split(",");
+             hotel.setTags(tagstmp);
+
+             hotels.add(hotel);
+         }
+         return hotels.toArray(new Hotel[hotels.size()]);
+
+     }
+
     public Hotel getRandomHotelOfTheWeek() {
         return null;
     }

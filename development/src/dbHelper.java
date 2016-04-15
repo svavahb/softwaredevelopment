@@ -48,7 +48,7 @@ public class dbHelper {
 
     public static void main(String[] args) throws SQLException {
         dbHelper db = new dbHelper();
-        Hotel hotel = new Hotel(100);
+        Hotel hotel = new Hotel();
         hotel.setName("hilton");
         hotel.setAddress("bla");
         hotel.setType("business");

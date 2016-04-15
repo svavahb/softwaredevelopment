@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.*;
+import java.util.Arrays;
 
 /**
  * Created by Svava Hildur on 20/03/16.
@@ -47,26 +48,28 @@ public class dbHelper {
 
     public static void main(String[] args) throws SQLException {
         dbHelper db = new dbHelper();
-        String queryStr = "SELECT * FROM hotel.public.Hotel WHERE hotelname=?";
-        Object[] params = {"Hilton"};
-        ArrayList<Array> resultList = new ArrayList<Array>();
-        ArrayList<Object[]> bla = new ArrayList<Object[]>();
-
-        ResultSet result = db.runQuery(queryStr, params);
-
-        int columnCount = result.getMetaData().getColumnCount();
-        while (result.next()) {
-            String[] row = new String[columnCount];
-            for (int i = 0; i < columnCount - 1; i++) {
-                row[i] = result.getString(i + 1);
-            }
-            resultList.add(result.getArray(10));
-            bla.add(row);
-            //nfdjbbgdgbgd
-        }
-        String tmp = resultList.get(0).toString();
-        tmp = tmp.substring(1, tmp.length() - 1);
-        String[] dot = tmp.split(",");
-        System.out.print(dot[0]);
+        Hotel hotel = new Hotel(100);
+        hotel.setName("hilton");
+        hotel.setAddress("bla");
+        hotel.setType("business");
+        hotel.setAvgPrice(12.5);
+        hotel.setCheckoutTime("12:00");
+        hotel.setDescription("fínt");
+        hotel.setPhoneNumber("521-6978");
+        hotel.setRating(8.9);
+        hotel.setStarCount(3.5);
+        String[] tags = {"a","b","c"};
+        hotel.setTags(tags);
+        String tagstring = Arrays.toString(tags);
+        tagstring = tagstring.substring(1,tagstring.length()-1);
+        tagstring = "'{"+tagstring+"}');";
+        Object[] params = {hotel.getName(), hotel.getAddress(), hotel.getType(), hotel.getDescription(), hotel.getPhoneNumber(),
+                hotel.getStarCount(), hotel.getAvgPrice(), hotel.getCheckoutTime()};
+        String queryStr = "INSERT INTO hotel(hotelname, address, typeofhotel, " +
+                "description, phonenumber, starcount, avgprice, checkouttime, " +
+                "tags) VALUES(?, ?, ?, ?, ?, ?, " +
+                "?, ?, "+ tagstring;
+        //System.out.print(queryStr);
+        db.runQuery(queryStr, params);
     }
 }

@@ -81,12 +81,17 @@ public class HotelController {
 
 
     public void saveHotel(Hotel hotel) {
+        String tagstring = Arrays.toString(hotel.getTags());
+        tagstring = tagstring.substring(1,tagstring.length()-1);
+        tagstring = "'{"+tagstring+"}');";
         Object[] params = {hotel.getName(), hotel.getAddress(), hotel.getType(), hotel.getDescription(), hotel.getPhoneNumber(),
-                (Double) hotel.getStarCount(), (Double) hotel.getAvgPrice(), hotel.getCheckoutTime(), hotel.getTags()};
-        dbh.runQuery("INSERT INTO hotel(hotelname, address, typeofhotel, " +
+                hotel.getStarCount(), hotel.getAvgPrice(), hotel.getCheckoutTime()};
+        String queryStr = "INSERT INTO hotel(hotelname, address, typeofhotel, " +
                 "description, phonenumber, starcount, avgprice, checkouttime, " +
                 "tags) VALUES(?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?)", params);
+                "?, ?, "+ tagstring;
+        dbh.runQuery(queryStr, params);
+        //mjá
     }
 
     public void deleteHotel(Hotel hotel) {

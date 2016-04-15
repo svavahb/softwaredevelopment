@@ -18,10 +18,10 @@ public class Hotel {
     private String checkoutTime;
     //private DayTrip[] dayTours;
 
-    public Hotel(int id) {
-
-        this.id = id;
+    public Hotel() {
     }
+
+    public void setId(int id) { this.id = id; }
 
     public Review[] getReviews() {
 

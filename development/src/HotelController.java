@@ -23,7 +23,8 @@ public class HotelController {
             }
             taglist.add(dbresults.getArray(10));
         }
-        Hotel hotel = new Hotel(Integer.parseInt(results[0]));
+        Hotel hotel = new Hotel();
+        hotel.setId(Integer.parseInt(results[0]));
         hotel.setName(results[1]);
         hotel.setAddress(results[2]);
         hotel.setType(results[3]);
@@ -60,7 +61,8 @@ public class HotelController {
         ArrayList<Hotel> hotels = new ArrayList<Hotel>(size);
         for(int i = 0; i < size; i++) {
             String[] row = bla.get(i);
-            Hotel hotel = new Hotel(Integer.parseInt(row[0]));
+            Hotel hotel = new Hotel();
+            hotel.setId(Integer.parseInt(row[0]));
             hotel.setName(row[1]);
             hotel.setAddress(row[2]);
             hotel.setType(row[3]);
@@ -95,8 +97,8 @@ public class HotelController {
     }
 
     public void deleteHotel(Hotel hotel) {
-        Object[] params = {hotel.getName()};
-        dbh.runQuery("DELETE FROM hotel WHERE name=?", params);
+        Object[] params = {hotel.getId()};
+        dbh.runQuery("DELETE FROM hotel WHERE id=?", params);
 
     }
 
@@ -148,7 +150,8 @@ public class HotelController {
          ArrayList<Hotel> hotels = new ArrayList<Hotel>(size);
          for(int i = 0; i < size; i++) {
              String[] row = resultList.get(i);
-             Hotel hotel = new Hotel(Integer.parseInt(row[0]));
+             Hotel hotel = new Hotel();
+             hotel.setId(Integer.parseInt(row[0]));
              hotel.setName(row[1]);
              hotel.setAddress(row[2]);
              hotel.setType(row[3]);

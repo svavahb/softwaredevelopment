@@ -16,7 +16,18 @@ public class HotelControllerTest {
     @Before
     public void setUp() throws Exception {
         hcontroller = new HotelController();
-        testing = new Hotel(7);
+        testing = new Hotel();
+        testing.setName("test");
+        testing.setAddress("test");
+        testing.setType("test");
+        testing.setAvgPrice(0.0);
+        testing.setCheckoutTime("test");
+        testing.setDescription("test");
+        testing.setPhoneNumber("test");
+        testing.setRating(0.0);
+        testing.setStarCount(0.0);
+        String[] tags = {"t","e","s","t"};
+        testing.setTags(tags);
         hcontroller.saveHotel(testing);
         roomtest = new Room(1);
     }

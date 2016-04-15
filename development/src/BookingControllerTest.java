@@ -1,12 +1,5 @@
 import static org.junit.Assert.*;
-/*import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;*/
 
-
-/**
- * Created by Svava Hildur on 20.3.2016.
- */
 public class BookingControllerTest {
 
     private BookingController bcontroller = new BookingController();

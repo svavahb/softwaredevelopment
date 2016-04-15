@@ -3,6 +3,7 @@
  */
 public class Room {
     private int numberOfBeds;
+    private int hotelid;
     private double sizeOfRoom;
     private String typeOfBathroom;
     private int roomNumber;
@@ -14,6 +15,8 @@ public class Room {
     public Room(int id) {
         this.id = id;
     }
+
+    public void setHotelId (int hotelid){ this.hotelid = hotelid;}
 
     public int getNumberOfBeds() {
         return numberOfBeds;

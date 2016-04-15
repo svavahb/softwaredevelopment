@@ -70,7 +70,7 @@ public class HotelControllerTest {
     @Test
     public void testGiveReview() throws Exception {
         int oldNumber = testing.getReviews().length;
-        hcontroller.giveReview(testing, "pallim", "fínt hótel sko", 8.0, "20160521");
+        hcontroller.giveReview(testing, "pallim", "fínt hótel sko", 8.0, "2016-05-21");
         int newNumber = testing.getReviews().length;
         assertNotEquals(oldNumber, newNumber);
     }
@@ -92,13 +92,13 @@ public class HotelControllerTest {
         assertNotEquals(oldNumber, newNumber);
     }
 
-    /*@Test
+    @Test
     public void testFindHotelsWithAvailableRooms() throws Exception {
         String start = "2020-5-19";
         String end = "2020-5-20";
-        Hotel[] test = hcontroller.findHotelsWithAvailableRooms(start, end, 1, 1, 5000000);
+        Hotel[] test = hcontroller.findHotelWithAvailableRooms(start, end, 1, 5000000);
         assertNotNull(test);
-    }*/
+    }
 
     @org.junit.Test
     public void testgetRandomHotelOfTheWeek() throws Exception {

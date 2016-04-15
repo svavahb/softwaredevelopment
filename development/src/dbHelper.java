@@ -30,6 +30,9 @@ public class dbHelper {
                 else if(params[i].getClass()==Double.class) {
                     stmt.setDouble(i+1, (Double) params[i]);
                 }
+                else if(params[i].getClass()==java.sql.Date.class) {
+                    stmt.setDate(i+1, (java.sql.Date) params[i]);
+                }
             }
             if(queryStr.charAt(0)=='S') {
                 result = stmt.executeQuery();

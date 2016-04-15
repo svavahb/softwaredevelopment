@@ -29,7 +29,15 @@ public class HotelControllerTest {
         String[] tags = {"t","e","s","t"};
         testing.setTags(tags);
         testing = hcontroller.saveHotel(testing);
-        roomtest = new Room(1);
+        roomtest = new Room();
+        roomtest.setHotelId(testing.getId());
+        roomtest.setNumberOfBeds(2);
+        roomtest.setSizeOfRoom(3);
+        roomtest.setTypeOfBathroom("test");
+        roomtest.setRoomNumber(215);
+        roomtest.setMaxGuests(2);
+        roomtest.setDescription("test");
+        roomtest.setRoomPrice(5.0);
     }
 
     @After
@@ -77,9 +85,10 @@ public class HotelControllerTest {
 
     @Test
     public void testRemoveRoom() throws Exception {
-        int oldNumber = testing.getNumberOfRooms();
+        roomtest = hcontroller.addRoom(testing, roomtest);
+        int oldNumber = testing.getRooms().length;
         hcontroller.removeRoom(testing, roomtest);
-        int newNumber = testing.getNumberOfRooms();
+        int newNumber = testing.getRooms().length;
         assertNotEquals(oldNumber, newNumber);
     }
 

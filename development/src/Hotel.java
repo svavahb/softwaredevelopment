@@ -20,6 +20,7 @@ public class Hotel {
 
     public Hotel() {
         reviews = new Review[0];
+        rooms = new Room[0];
     }
 
     public void setId(int id) { this.id = id; }

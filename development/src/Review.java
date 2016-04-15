@@ -10,9 +10,11 @@ public class Review {
     private int id;
     private int hotelId;
 
-    public Review(int id) {
-        this.id = id;
+    public Review() {
+
     }
+
+    public void setId(int id) { this.id = id; }
 
     public String getUser() {
         return user;

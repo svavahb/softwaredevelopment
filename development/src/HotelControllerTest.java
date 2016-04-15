@@ -70,7 +70,7 @@ public class HotelControllerTest {
     @Test
     public void testGiveReview() throws Exception {
         int oldNumber = testing.getReviews().length;
-        hcontroller.giveReview(testing, "palli", "fínt hótel sko", 8.0, "2016-05-21");
+        hcontroller.giveReview(testing, "pallim", "fínt hótel sko", 8.0, "20160521");
         int newNumber = testing.getReviews().length;
         assertNotEquals(oldNumber, newNumber);
     }

@@ -111,9 +111,11 @@ public class HotelController {
     }
 
     public Review giveReview(Hotel hotel, String user, String reviewtext, double userRating, String date) throws SQLException {
-        Object[] params = {hotel.getId(), user, 0, reviewtext, userRating, date  };
-        dbh.runQuery("INSERT INTO  review(hotelid, username, helpcount," +
-                " review, userrating, datewritten) VALUES(?, ?, ?, ?, ?, ?)", params);
+        Object[] params = {hotel.getId(), user, 0, reviewtext, userRating, java.sql.Date.valueOf("2016-05-19")  };
+        String queryStr = "INSERT INTO  review(hotelid, username, helpcount," +
+                " review, userrating, datewritten) VALUES (?, ?, ?, ?, ?, ?)";
+        System.out.print(queryStr);
+        dbh.runQuery(queryStr, params);
         Review[] reviews = getReviews(hotel);
         hotel.setReviews(reviews);
 
@@ -165,6 +167,7 @@ public class HotelController {
     }
 
     public Hotel[] findHotelWithAvailableRooms(String startDate, String endDate, int guestCount, double minimumStars, int maxPrice) {
+
         return null;
     }
 

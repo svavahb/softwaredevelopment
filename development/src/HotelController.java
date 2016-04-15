@@ -8,7 +8,6 @@
  */
 
 public class HotelController {
-     private Hotel[] hotels;
      private dbHelper dbh;
 
 
@@ -44,7 +43,7 @@ public class HotelController {
 
     public Hotel[] getAllHotels() throws SQLException {
         Object[] params = {(Integer) 1};
-        ResultSet results = dbh.runQuery("SELECT * FROM hotel", params);
+        ResultSet results = dbh.runQuery("SELECT * FROM hotel WHERE ?=1", params);
         ArrayList<Array> resultList = new ArrayList<Array>();
         ArrayList<String[]> bla = new ArrayList<String[]>();
 
@@ -84,7 +83,7 @@ public class HotelController {
     public void saveHotel(Hotel hotel) {
         Object[] params = {hotel.getName(), hotel.getAddress(), hotel.getType(), hotel.getDescription(), hotel.getPhoneNumber(),
                 (Double) hotel.getStarCount(), (Double) hotel.getAvgPrice(), hotel.getCheckoutTime(), hotel.getTags()};
-        ResultSet results = dbh.runQuery("INSERT INTO hotel(hotelname, address, typeofhotel, " +
+        dbh.runQuery("INSERT INTO hotel(hotelname, address, typeofhotel, " +
                 "description, phonenumber, starcount, avgprice, checkouttime, " +
                 "tags) VALUES(?, ?, ?, ?, ?, ?, " +
                 "?, ?, ?, ?)", params);
@@ -92,14 +91,14 @@ public class HotelController {
 
     public void deleteHotel(Hotel hotel) {
         Object[] params = {hotel.getName()};
-        ResultSet results = dbh.runQuery("DELETE FROM hotel WHERE name=?", params);
+        dbh.runQuery("DELETE FROM hotel WHERE name=?", params);
 
     }
 
-    public void giveReview(Hotel hotel, String user, String review, double userRating) {
-        Object[] params = {hotel.getId(), user, "date", review, userRating };
-        ResultSet results = dbh.runQuery("INSERT INTO  review(hotelid, username, helpcount," +
-                " review, userrating, datewritten) VALUES(?, ?, ?, 0, ?, ?)", params);
+    public void giveReview(Hotel hotel, String user, String review, double userRating, String date) {
+        Object[] params = {hotel.getId(), user, 0, review, userRating, date  };
+        dbh.runQuery("INSERT INTO  review(hotelid, username, helpcount," +
+                " review, userrating, datewritten) VALUES(?, ?, ?, ?, ?, ?)", params);
 
     }
 
@@ -107,13 +106,13 @@ public class HotelController {
         Object[] params = {(Integer)hotel.getId(), (Integer)room.getNumberOfBeds(),
                 (Double)room.getSizeOfRoom(), room.getTypeOfBathroom(), (Integer)room.getRoomNumber(),
                 (Integer)room.getMaxGuests(), room.getDescription(), (double)room.getRoomPrice()};
-        ResultSet results = dbh.runQuery("INSERT INTO room(hotelId, numberOfBeds, sizeOfRoom, typeOfBathroom, " +
+        dbh.runQuery("INSERT INTO room(hotelId, numberOfBeds, sizeOfRoom, typeOfBathroom, " +
                 "roomNumber, maxGuests, description, roomprice) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", params);
     }
 
     public void removeRoom(Hotel hotel, Room room) {
         Object[] params = {room.getId()};
-        ResultSet results = dbh.runQuery("DELETE FROM room WHERE room.id=?", params);
+        dbh.runQuery("DELETE FROM room WHERE room.id=?", params);
     }
 
     public Hotel[] findHotelWithAvailableRooms(String startDate, String endDate, int guestCount, double minimumStars, int maxPrice) {
@@ -128,8 +127,33 @@ public class HotelController {
         dbh = new dbHelper();
     }
 
-    public Review[] getReviews(Hotel hotel) {
-        return null;
+    public Review[] getReviews(Hotel hotel) throws SQLException {
+        Object[] params = {(Integer) 1};
+        ResultSet results = dbh.runQuery("SELECT * FROM hotel", params);
+        ArrayList<String[]> resultList = new ArrayList<String[]>();
+
+        int columnCount = results.getMetaData().getColumnCount();
+        while (results.next()) {
+            String[] row = new String[columnCount];
+            for (int i = 0; i < columnCount; i++) {
+                row[i] = results.getString(i + 1);
+            }
+            resultList.add(row);
+        }
+        int size = resultList.size();
+        Review[] reviews = new Review[size];
+        for(int i=0; i<size; i++) {
+            String[] row = resultList.get(i);
+            Review review = new Review(Integer.parseInt(row[0]));
+            review.setHotelId(Integer.parseInt(row[1]));
+            review.setUser(row[2]);
+            review.setHelpfulCount(Integer.parseInt(row[3]));
+            review.setReview(row[4]);
+            review.setUserRating(Double.parseDouble(row[5]));
+            review.setDate(row[6]);
+            reviews[i] = review;
+        }
+        return reviews;
     }
 
 

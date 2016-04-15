@@ -8,6 +8,7 @@ public class Review {
     private String review;
     private double userRating;
     private int id;
+    private int hotelId;
 
     public Review(int id) {
         this.id = id;
@@ -52,4 +53,8 @@ public class Review {
     public void setUserRating(double userRating) {
         this.userRating = userRating;
     }
+
+    public int getHotelId() { return hotelId; }
+
+    public void setHotelId(int hotelId) { this.hotelId = hotelId; }
 }

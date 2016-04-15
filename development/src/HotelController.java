@@ -2,6 +2,7 @@
  import java.sql.*;
  import java.util.*;
 
+ //halldóra hálfviti
 
  /**
  * Created by Svava Hildur on 16/03/16.
@@ -128,7 +129,7 @@ public class HotelController {
         dbh = new dbHelper();
     }
 
-    public Review[] getReviews() {
+    public Review[] getReviews(Hotel hotel) {
         return null;
     }
 

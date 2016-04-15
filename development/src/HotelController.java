@@ -172,7 +172,7 @@ public class HotelController {
     }
 
     public Review[] getReviews(Hotel hotel) throws SQLException {
-        Object[] params = {(Integer) 1};
+        Object[] params = {hotel.getId()};
         ResultSet results = dbh.runQuery("SELECT * FROM hotel", params);
         ArrayList<String[]> resultList = new ArrayList<String[]>();
 

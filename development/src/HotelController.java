@@ -91,6 +91,7 @@ public class HotelController {
                 "tags) VALUES(?, ?, ?, ?, ?, ?, " +
                 "?, ?, "+ tagstring;
         dbh.runQuery(queryStr, params);
+        //mjá
     }
 
     public void deleteHotel(Hotel hotel) {

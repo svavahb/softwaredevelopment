@@ -8,10 +8,11 @@ import java.sql.*;
  */
 public class BookingController {
     private Booking[] bookings;
-    private dbHelper dbh = new dbHelper();
+    private dbHelper dbh;
 
 
     public void BookingController() {
+        dbh = new dbHelper();
     }
 
     public Booking getBooking(int id) throws SQLException {

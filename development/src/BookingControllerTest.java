@@ -1,17 +1,20 @@
-//import static org.junit.Assert.*;
+import static org.junit.Assert.*;
+/*import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;*/
+
 
 /**
  * Created by Svava Hildur on 20.3.2016.
  */
 public class BookingControllerTest {
 
-    private BookingController bcontroller;
+    private BookingController bcontroller = new BookingController();
     private Booking book;
     private Booking testbooking;
 
     @org.junit.Before
     public void setUp() throws Exception {
-        bcontroller = new BookingController();
         book = new Booking(1);
         book.setEmail("palli@gmail.com");
         book.setCustomerName("palli");
@@ -22,7 +25,7 @@ public class BookingControllerTest {
 
     @org.junit.After
     public void tearDown() throws Exception {
-        bcontroller.deleteBooking(book);
+        bcontroller.deleteBooking(book.getId());
         bcontroller = null;
     }
 
@@ -38,7 +41,7 @@ public class BookingControllerTest {
     }
 
     //ath hvort skili error ef við setjum inn streng með táknum í getBooking
-    @org.junit.Test(expected=IllegalArgumentsException.class)
+    @org.junit.Test(expected=IllegalArgumentException.class)
     public void testNoSpecialCharsGetBooking() throws Exception {
         testbooking = bcontroller.getBooking(Integer.parseInt(".-/"));
     }
@@ -63,9 +66,9 @@ public class BookingControllerTest {
 
     @org.junit.Test
     public void testgetBookings() throws Exception {
-        Booking[] bfylki = bcontroller.getBookings();
+        Booking[] bfylki = bcontroller.getBookings(book.getHotel());
         assertNotNull(bfylki);
-        assertEqual(bfylki[0].getId(), 1);
+        assertEquals(bfylki[0].getId(), 1);
     }
 
     @org.junit.Test

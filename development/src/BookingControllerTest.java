@@ -4,15 +4,19 @@
  * Created by Svava Hildur on 20.3.2016.
  */
 public class BookingControllerTest {
-/*
+
+    private BookingController bcontroller;
+    private Booking book;
+    private Booking testbooking;
+
     @org.junit.Before
     public void setUp() throws Exception {
-        BookingController bcontroller = new BookingController();
-        Booking book = new Booking(1);
+        bcontroller = new BookingController();
+        book = new Booking(1);
         book.setEmail("palli@gmail.com");
         book.setCustomerName("palli");
         book.setStartDate("2016-05-19");
-        book.setEndDate("2016-05-20);
+        book.setEndDate("2016-05-20");
         bcontroller.saveBooking(book);
     }
 
@@ -20,31 +24,30 @@ public class BookingControllerTest {
     public void tearDown() throws Exception {
         bcontroller.deleteBooking(book);
         bcontroller = null;
-
     }
 
     @org.junit.Test(expected=IllegalArgumentException.class)
     public void testNoEmptyStringGetBooking() throws Exception {
-        Booking testbooking = bcontroller.getBooking("");
+        testbooking = bcontroller.getBooking("");
     }
 
     //ath hvort skili error ef við setjum inn streng með bókstöfum í getBooking
     @org.junit.Test(expected=IllegalArgumentException.class)
     public void testNoLettersGetBooking() throws Exception {
-        Booking testbooking = bcontroller.getBooking("a");
+        testbooking = bcontroller.getBooking("a");
     }
 
     //ath hvort skili error ef við setjum inn streng með táknum í getBooking
     @org.junit.Test(expected=IllegalArgumentsException.class)
     public void testNoSpecialCharsGetBooking() throws Exception {
-        Booking testbooking = bcontroller.getBooking(".-/");
+        testbooking = bcontroller.getBooking(".-/");
     }
 
     //ath hvort skili ekki error ef við setjum inn streng með tölum (aðferðin ætti að parsa það yfir í int)
     @org.junit.Test
     public void testIntStringGetBooking() throws Exception {
-        Booking testBooking = bcontroller.getBooking("1");
-        assertEquals(testBooking.getId(), 1);
+        testbooking = bcontroller.getBooking("1");
+        assertEquals(testbooking.getId(), 1);
     }
 
     @org.junit.Test
@@ -70,5 +73,5 @@ public class BookingControllerTest {
         Booking[] pallibook = bcontroller.getBookingsByCustomer("palli");
         assertNotNull(pallibook);
         assertEquals(pallibook[0].getCustomerName(),"palli");
-    }*/
+    }
 }

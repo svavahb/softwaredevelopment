@@ -27,6 +27,8 @@ public class Booking {
         this.id = id;
     }
 
+    public int getId(){ return id;}
+
     public void setHotelId(int id) {this.hotelId = id;}
 
     public static String getPhoneNr() {

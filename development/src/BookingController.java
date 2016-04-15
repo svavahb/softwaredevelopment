@@ -11,7 +11,7 @@ public class BookingController {
     private dbHelper dbh;
 
 
-    public void BookingController() {
+    public BookingController() {
         dbh = new dbHelper();
     }
 

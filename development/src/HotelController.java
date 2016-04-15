@@ -94,11 +94,11 @@ public class HotelController {
                 "?, ?, "+ tagstring;
         dbh.runQuery(queryStr, params);
 
-        Object[] par = {hotel.getName()};
+        /*Object[] par = {hotel.getName()};
         ResultSet result = dbh.runQuery("SELECT id FROM hotel WHERE hotelname = ?", par);
         while(result.next()) {
             hotel.setId(Integer.parseInt(result.getString(1)));
-        }
+        }*/
         return hotel;
     }
 
@@ -181,7 +181,7 @@ public class HotelController {
         return null;
     }
 
-    public void HotelController() {
+    public HotelController() {
         dbh = new dbHelper();
     }
 
@@ -214,6 +214,4 @@ public class HotelController {
         }
         return reviews;
     }
-
-
  }

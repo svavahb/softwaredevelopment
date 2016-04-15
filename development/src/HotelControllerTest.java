@@ -18,7 +18,6 @@ public class HotelControllerTest {
     @Before
     public void setUp() throws Exception {
         hcontroller = new HotelController();
-        dbHelper db = new dbHelper();
         testing = new Hotel();
         testing.setName("test");
         testing.setAddress("test");

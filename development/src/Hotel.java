@@ -19,6 +19,7 @@ public class Hotel {
     //private DayTrip[] dayTours;
 
     public Hotel() {
+        reviews = new Review[0];
     }
 
     public void setId(int id) { this.id = id; }
@@ -31,6 +32,7 @@ public class Hotel {
     public int getId() {
         return id;
     }
+
     public void setReviews(Review[] reviews) {
 
         this.reviews = reviews;

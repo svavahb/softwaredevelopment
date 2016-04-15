@@ -3,8 +3,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-import java.sql.ResultSet;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -36,14 +34,15 @@ public class HotelControllerTest {
 
     @After
     public void tearDown() throws Exception {
+
         hcontroller.deleteHotel(testing);
         hcontroller = null;
     }
 
     @Test
     public void testGetHotel() throws Exception {
-        Hotel hilton = hcontroller.getHotel("Hilton");
-        assertEquals("Hilton", hilton.getName());
+        Hotel test = hcontroller.getHotel("test");
+        assertEquals("test", test.getName());
     }
 
     //Tékka hvort það skili error fyrir of stutt input
@@ -63,7 +62,7 @@ public class HotelControllerTest {
     @Test
     public void testGiveReview() throws Exception {
         int oldNumber = testing.getReviews().length;
-        hcontroller.giveReview(testing, "palli", "fínt hótel sko", 8, "2016-05-21");
+        hcontroller.giveReview(testing, "palli", "fínt hótel sko", 8.0, "2016-05-21");
         int newNumber = testing.getReviews().length;
         assertNotEquals(oldNumber, newNumber);
     }

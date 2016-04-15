@@ -48,28 +48,16 @@ public class dbHelper {
 
     public static void main(String[] args) throws SQLException {
         dbHelper db = new dbHelper();
-        Hotel hotel = new Hotel();
-        hotel.setName("hilton");
-        hotel.setAddress("bla");
-        hotel.setType("business");
-        hotel.setAvgPrice(12.5);
-        hotel.setCheckoutTime("12:00");
-        hotel.setDescription("fínt");
-        hotel.setPhoneNumber("521-6978");
-        hotel.setRating(8.9);
-        hotel.setStarCount(3.5);
-        String[] tags = {"a","b","c"};
-        hotel.setTags(tags);
-        String tagstring = Arrays.toString(tags);
-        tagstring = tagstring.substring(1,tagstring.length()-1);
-        tagstring = "'{"+tagstring+"}');";
-        Object[] params = {hotel.getName(), hotel.getAddress(), hotel.getType(), hotel.getDescription(), hotel.getPhoneNumber(),
-                hotel.getStarCount(), hotel.getAvgPrice(), hotel.getCheckoutTime()};
-        String queryStr = "INSERT INTO hotel(hotelname, address, typeofhotel, " +
-                "description, phonenumber, starcount, avgprice, checkouttime, " +
-                "tags) VALUES(?, ?, ?, ?, ?, ?, " +
-                "?, ?, "+ tagstring;
-        //System.out.print(queryStr);
-        db.runQuery(queryStr, params);
+        Object[] params = {"test"};
+        String queryStr = "SELECT * FROM hotel WHERE hotelname = ?";
+        ResultSet result = db.runQuery(queryStr, params);
+        ArrayList<Array> taglist = new ArrayList<Array>();
+        while(result.next()) {
+            taglist.add(result.getArray(10));
+        }
+        String tmp = taglist.get(0).toString();
+        tmp = tmp.substring(1, tmp.length()-1);
+        String[] tags = tmp.split(",");
+        System.out.print(tags[0]);
     }
 }

@@ -3,6 +3,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 
+import java.sql.ResultSet;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -16,6 +18,7 @@ public class HotelControllerTest {
     @Before
     public void setUp() throws Exception {
         hcontroller = new HotelController();
+        dbHelper db = new dbHelper();
         testing = new Hotel();
         testing.setName("test");
         testing.setAddress("test");
@@ -28,7 +31,7 @@ public class HotelControllerTest {
         testing.setStarCount(0.0);
         String[] tags = {"t","e","s","t"};
         testing.setTags(tags);
-        hcontroller.saveHotel(testing);
+        testing = hcontroller.saveHotel(testing);
         roomtest = new Room(1);
     }
 

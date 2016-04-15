@@ -82,7 +82,7 @@ public class HotelController {
     }
 
 
-    public void saveHotel(Hotel hotel) {
+    public Hotel saveHotel(Hotel hotel) throws SQLException {
         String tagstring = Arrays.toString(hotel.getTags());
         tagstring = tagstring.substring(1,tagstring.length()-1);
         tagstring = "'{"+tagstring+"}');";
@@ -93,7 +93,13 @@ public class HotelController {
                 "tags) VALUES(?, ?, ?, ?, ?, ?, " +
                 "?, ?, "+ tagstring;
         dbh.runQuery(queryStr, params);
-        //mjá
+
+        Object[] par = {hotel.getName()};
+        ResultSet result = dbh.runQuery("SELECT id FROM hotel WHERE hotelname = ?", par);
+        while(result.next()) {
+            hotel.setId(Integer.parseInt(result.getString(1)));
+        }
+        return hotel;
     }
 
     public void deleteHotel(Hotel hotel) {

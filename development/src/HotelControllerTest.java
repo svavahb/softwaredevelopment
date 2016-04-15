@@ -27,7 +27,7 @@ public class HotelControllerTest {
         hcontroller = null;
     }
 
-    @After
+    @Test
     public void testGetHotel() throws Exception {
         Hotel hilton = hcontroller.getHotel("Hilton");
         assertEquals("Hilton", hilton.getName());
@@ -50,7 +50,7 @@ public class HotelControllerTest {
     @Test
     public void testGiveReview() throws Exception {
         int oldNumber = testing.getReviews().length;
-        hcontroller.giveReview(testing, "palli", "fínt hótel sko", 8);
+        hcontroller.giveReview(testing, "palli", "fínt hótel sko", 8, "2016-05-21");
         int newNumber = testing.getReviews().length;
         assertNotEquals(oldNumber, newNumber);
     }

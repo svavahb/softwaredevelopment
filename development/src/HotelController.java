@@ -46,8 +46,8 @@ public class HotelController {
     public Hotel[] getAllHotels() throws SQLException {
         Object[] params = {(Integer) 1};
         ResultSet results = dbh.runQuery("SELECT * FROM hotel", params);
-        ArrayList<Array> resultList = new ArrayList<>();
-        ArrayList<String[]> bla = new ArrayList<>();
+        ArrayList<Array> resultList = new ArrayList<Array>();
+        ArrayList<String[]> bla = new ArrayList<String[]>();
 
         int columnCount = results.getMetaData().getColumnCount();
         while (results.next()) {
@@ -59,7 +59,7 @@ public class HotelController {
             bla.add(row);
         }
         int size = resultList.size();
-        ArrayList<Hotel> hotels = new ArrayList<>(size);
+        ArrayList<Hotel> hotels = new ArrayList<Hotel>(size);
         for(int i = 0; i < size; i++) {
             String[] row = bla.get(i);
             Hotel hotel = new Hotel(Integer.parseInt(row[0]));

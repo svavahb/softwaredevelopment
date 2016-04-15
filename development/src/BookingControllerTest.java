@@ -11,8 +11,8 @@ public class BookingControllerTest {
         Booking book = new Booking(1);
         book.setEmail("palli@gmail.com");
         book.setCustomerName("palli");
-        book.setStartDate(Date(2016,05,19));
-        book.setEndDate(Date(2016,05,20));
+        book.setStartDate("2016-05-19");
+        book.setEndDate("2016-05-20);
         bcontroller.saveBooking(book);
     }
 
@@ -54,8 +54,8 @@ public class BookingControllerTest {
         assertEquals(btest.getId(), 1);
         assertEquals(btest.getCustomerName(),"palli");
         assertEquals(btest.getEmail(),"palli@gmail.com");
-        assertEquals(btest.getStartDate(),Date(2016,05,19));
-        assertEquals(btest.getEndDate(),Date(2016,05,20));
+        assertEquals(btest.getStartDate(),"2016-05-19");
+        assertEquals(btest.getEndDate(),"2016-05-20");
     }
 
     @org.junit.Test

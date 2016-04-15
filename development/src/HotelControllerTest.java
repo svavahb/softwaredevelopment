@@ -2,7 +2,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -74,8 +73,8 @@ public class HotelControllerTest {
 
     @Test
     public void testFindHotelsWithAvailableRooms() throws Exception {
-        Date start = new Date(2020, 5, 19);
-        Date end = new Date(2020, 5, 20);
+        String start = "2020-5-19";
+        String end = "2020-5-20";
         Hotel[] test = hcontroller.findHotelsWithAvailableRooms(start, end, 1, 1, 5000000);
         assertNotNull(test);
     }

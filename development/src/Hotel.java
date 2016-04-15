@@ -1,4 +1,3 @@
-import java.util.Date;
 
 /**
  * Created by Svava Hildur on 16/03/16.
@@ -14,9 +13,9 @@ public class Hotel {
     private double starCount;
     private double rating; //????
     private Room[] rooms;
-    private String tags;
+    private String[] tags;
     private double avgPrice;
-    private Date checkoutTime;
+    private String checkoutTime;
     //private DayTrip[] dayTours;
 
     public Hotel(int id) {
@@ -122,7 +121,7 @@ public class Hotel {
         return rooms.length;
     }
 
-    public String getTags() {
+    public String[] getTags() {
 
         return tags;
     }

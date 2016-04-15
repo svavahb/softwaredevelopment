@@ -3,7 +3,7 @@
  */
 public class Review {
     private String user;
-    private int date;
+    private String date;
     private int helpfulCount;
     private String review;
     private double userRating;
@@ -21,11 +21,11 @@ public class Review {
         this.user = user;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

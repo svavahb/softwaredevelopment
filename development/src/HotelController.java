@@ -1,4 +1,3 @@
- import java.util.Date;
  import java.sql.*;
  import java.util.*;
 
@@ -117,7 +116,7 @@ public class HotelController {
         ResultSet results = dbh.runQuery("DELETE FROM room WHERE room.id=?", params);
     }
 
-    public Hotel[] findHotelWithAvailableRooms(Date startDate, Date endDate, int guestCount, double minimumStars, int maxPrice) {
+    public Hotel[] findHotelWithAvailableRooms(String startDate, String endDate, int guestCount, double minimumStars, int maxPrice) {
         return null;
     }
 

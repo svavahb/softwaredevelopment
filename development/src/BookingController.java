@@ -4,17 +4,18 @@ import java.util.Date;
 import java.sql.*;
 
 /**
- * Created by arnorv on 16/03/16. NEI LYGAR
+ * Created by thordis on 16/03/16.
  */
 public class BookingController {
     private Booking[] bookings;
     private dbHelper dbh;
-
+    //klasi sem sér um tenginu við gagnagrunn
 
     public BookingController() {
         dbh = new dbHelper();
     }
 
+    //leitar að bókun eftir id og skilar henni sem fylki.
     public Booking getBooking(int id) throws SQLException {
         Object[] params = {id};
         ResultSet dbresults = dbh.runQuery("SELECT * FROM booking WHERE id = ?", params);
@@ -37,15 +38,16 @@ public class BookingController {
         return book;
     }
 
+    // aðferð sem nær í bókun eftir id á strengja formi
     public Booking getBooking(String id) throws SQLException {
         return getBooking(Integer.parseInt(id));
     }
-
+    // eyðir úr bókun eftir id
     public void deleteBooking(int id) {
         Object[] params = {(Integer) id};
         dbh.runQuery("DELETE FROM booking WHERE id=?", params);
     }
-
+    // skilar fylki með öllum bókunum sem eru skráðar á einhvern ákveðinn viðskiptavin
     public Booking[] getBookingsByCustomer(String customerName) throws SQLException {
         Object[] params = {customerName};
         ResultSet results = dbh.runQuery("SELECT * FROM booking WHERE customername=?", params);
@@ -81,6 +83,7 @@ public class BookingController {
         return bookings;
     }
 
+    // skilar fylki með öllum bókunum sem skráðar eru á ákveðið hótel
     public Booking[] getBookings(Hotel hotel) throws SQLException {
         Object[] params = {hotel.getId()};
         ResultSet results = dbh.runQuery("SELECT * FROM booking WHERE hotelid=?", params);
@@ -114,7 +117,7 @@ public class BookingController {
         }
         return bookings;
     }
-
+    // vistar nýja bókun, þarf að tala inn allar upplýsingar um bókunina, sbr dbh.runQuery
     public Booking saveBooking(Booking booking) throws SQLException {
         Object[] params = {Booking.getHotelId(), Booking.getRoomId(), Booking.getPhoneNr(), Booking.getCustomerName(),
                 Booking.getEmail(), Booking.getCreditCardNr(), java.sql.Date.valueOf(Booking.getStartDate()),

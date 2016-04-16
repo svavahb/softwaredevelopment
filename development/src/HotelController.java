@@ -15,13 +15,13 @@ public class HotelController {
         Object[] params = {name};
         ResultSet dbresults = dbh.runQuery("SELECT * FROM hotel WHERE hotelname=?", params);
         int columnCount = dbresults.getMetaData().getColumnCount();
-        String[] results = new String[10];
+        String[] results = new String[11];
         ArrayList<Array> taglist = new ArrayList<Array>();
         while(dbresults.next()) {
             for(int i=1; i<columnCount; i++) {
                 results[i-1] = dbresults.getString(i);
             }
-            taglist.add(dbresults.getArray(11));
+            taglist.add(dbresults.getArray(12));
         }
         Hotel hotel = new Hotel();
         hotel.setId(Integer.parseInt(results[8]));
@@ -33,7 +33,8 @@ public class HotelController {
         hotel.setStarCount(Double.parseDouble(results[5]));
         hotel.setAvgPrice(Double.parseDouble(results[6]));
         hotel.setCheckoutTime(results[7]);
-        hotel.setRating(Double.parseDouble((results[8])));
+        hotel.setRating(Double.parseDouble((results[9])));
+        hotel.setPlace(results[10]);
         String tmp = taglist.get(0).toString();
         tmp = tmp.substring(1, tmp.length()-1);
         String[] tags = tmp.split(",");
@@ -56,8 +57,7 @@ public class HotelController {
             for (int i = 0; i < columnCount - 1; i++) {
                 row[i] = results.getString(i + 1);
             }
-            tagList.add(results.getArray(10));
-            row[10] = results.getString(11);
+            tagList.add(results.getArray(12));
             resultList.add(row);
         }
         int size = resultList.size();
@@ -74,7 +74,8 @@ public class HotelController {
             hotel.setStarCount(Double.parseDouble(row[5]));
             hotel.setAvgPrice(Double.parseDouble(row[6]));
             hotel.setCheckoutTime(row[7]);
-            hotel.setRating(Double.parseDouble((row[8])));
+            hotel.setRating(Double.parseDouble((row[9])));
+            hotel.setPlace(row[10]);
             String tmp = resultList.get(i).toString();
             tmp = tmp.substring(1, tmp.length()-1);
             String[] tags = tmp.split(",");
@@ -91,11 +92,11 @@ public class HotelController {
         tagstring = tagstring.substring(1,tagstring.length()-1);
         tagstring = "'{"+tagstring+"}');";
         Object[] params = {hotel.getName(), hotel.getAddress(), hotel.getType(), hotel.getDescription(), hotel.getPhoneNumber(),
-                hotel.getStarCount(), hotel.getAvgPrice(), hotel.getCheckoutTime(), hotel.getRating()};
+                hotel.getStarCount(), hotel.getAvgPrice(), hotel.getCheckoutTime(), hotel.getRating(), hotel.getPlace()};
         String queryStr = "INSERT INTO hotel(hotelname, address, typeofhotel, " +
                 "description, phonenumber, starcount, avgprice, checkouttime, " +
-                "rating, tags) VALUES(?, ?, ?, ?, ?, ?, " +
-                "?, ?, "+ tagstring;
+                "rating, place, tags) VALUES(?, ?, ?, ?, ?, ?, " +
+                "?, ?, ?, ?, "+ tagstring;
         dbh.runQuery(queryStr, params);
 
         Object[] par = {hotel.getName()};
@@ -176,13 +177,13 @@ public class HotelController {
 
      // Finnur öll hótel sem hafa laus herbergi á tímabilinu startDate-endDate, með lágmarksfjölda stjarna minimumStars
      // og hámarksverð maxPrice
-    public Hotel[] findHotelWithAvailableRooms(String startDate, String endDate, double minimumStars, int maxPrice) throws SQLException {
+    public Hotel[] findHotelWithAvailableRooms(String startDate, String endDate, double minimumStars, int maxPrice, String place) throws SQLException {
         Object[] params = {java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate),
-                            java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate), minimumStars, maxPrice};
+                            java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate), minimumStars, maxPrice, place};
         String queryStr = "SELECT DISTINCT hotelname, address, typeofhotel, hotel.description, phonenumber, starcount, avgprice, "
-                + "checkouttime, hotel.id, rating, tags  FROM hotel, room WHERE hotel.id=room.hotelid AND room.id IN "
+                + "checkouttime, hotel.id, rating, place, tags  FROM hotel, room WHERE hotel.id=room.hotelid AND room.id IN "
                 + "(SELECT roomid FROM booking WHERE (startdate NOT BETWEEN ? AND ?) OR (enddate NOT BETWEEN ? AND ?)) AND "
-                + "starcount>=? AND avgprice<=?";
+                + "starcount>=? AND avgprice<=? AND place = ?";
         ResultSet result = dbh.runQuery(queryStr, params);
         ArrayList<String[]> resultList = new ArrayList<String[]>();
         ArrayList<Array> tagList = new ArrayList<Array>();
@@ -193,7 +194,7 @@ public class HotelController {
             for (int i = 0; i < columnCount - 1; i++) {
                 row[i] = result.getString(i + 1);
             }
-            tagList.add(result.getArray(11));
+            tagList.add(result.getArray(12));
             resultList.add(row);
         }
 
@@ -211,7 +212,8 @@ public class HotelController {
             hotel.setStarCount(Double.parseDouble(row[5]));
             hotel.setAvgPrice(Double.parseDouble(row[6]));
             hotel.setCheckoutTime(row[7]);
-            hotel.setRating(Double.parseDouble((row[8])));
+            hotel.setRating(Double.parseDouble((row[9])));
+            hotel.setPlace(row[10]);
             String tmp = tagList.get(i).toString();
             tmp = tmp.substring(1, tmp.length()-1);
             String[] tagstmp = tmp.split(",");
@@ -239,8 +241,7 @@ public class HotelController {
              for (int i = 0; i < columnCount - 1; i++) {
                  row[i] = result.getString(i + 1);
              }
-             tagList.add(result.getArray(10));
-             row[10] = result.getString(11);
+             tagList.add(result.getArray(12));
              resultList.add(row);
          }
 
@@ -258,7 +259,8 @@ public class HotelController {
              hotel.setStarCount(Double.parseDouble(row[5]));
              hotel.setAvgPrice(Double.parseDouble(row[6]));
              hotel.setCheckoutTime(row[7]);
-             hotel.setRating(Double.parseDouble((row[8])));
+             hotel.setRating(Double.parseDouble((row[9])));
+             hotel.setPlace(row[10]);
              String tmp = tagList.get(i).toString();
              tmp = tmp.substring(1, tmp.length()-1);
              String[] tagstmp = tmp.split(",");
@@ -373,8 +375,7 @@ public class HotelController {
              for (int i = 0; i < columnCount - 1; i++) {
                  row[i] = results.getString(i + 1);
              }
-             tagList.add(results.getArray(10));
-             row[10] = results.getString(11);
+             tagList.add(results.getArray(12));
              resultList.add(row);
          }
          int size = resultList.size();
@@ -391,7 +392,8 @@ public class HotelController {
              hotel.setStarCount(Double.parseDouble(row[5]));
              hotel.setAvgPrice(Double.parseDouble(row[6]));
              hotel.setCheckoutTime(row[7]);
-             hotel.setRating(Double.parseDouble((row[8])));
+             hotel.setRating(Double.parseDouble((row[9])));
+             hotel.setPlace(row[10]);
              String tmp = resultList.get(i).toString();
              tmp = tmp.substring(1, tmp.length()-1);
              String[] tags = tmp.split(",");

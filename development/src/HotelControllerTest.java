@@ -25,6 +25,7 @@ public class HotelControllerTest {
         testing.setDescription("test");
         testing.setPhoneNumber("test");
         testing.setRating(0.0);
+        testing.setPlace("Reykjavík");
         testing.setStarCount(0.0);
         String[] tags = {"t","e","s","t"};
         testing.setTags(tags);
@@ -96,7 +97,7 @@ public class HotelControllerTest {
     public void testFindHotelsWithAvailableRooms() throws Exception {
         String start = "2020-05-09";
         String end = "2020-05-11";
-        Hotel[] test = hcontroller.findHotelWithAvailableRooms(start, end, 1, 5000000);
+        Hotel[] test = hcontroller.findHotelWithAvailableRooms(start, end, 1, 5000000, "Reykjavík");
         assertNotNull(test[0]);
     }
 

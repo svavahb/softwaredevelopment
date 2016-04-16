@@ -346,4 +346,59 @@ public class HotelController {
          }
          return rooms;
      }
+
+     // raðar hótelum í hækkandi röð
+     public Hotel[] sortByPrice(Hotel[] hotels) {
+         for (int i=1; i<hotels.length; i++) {
+             Hotel temp = hotels[i];
+             int j;
+             for(j=i-1; j>=0 && temp.getAvgPrice()<hotels[j].getAvgPrice(); j--) {
+                 hotels[j+1] = hotels[j];
+             }
+             hotels[j+1] = temp;
+         }
+         return hotels;
+     }
+
+     // skilar öllum hótelum af sömu týpu
+     public Hotel[] getHotelsByType( String type) throws SQLException {
+         Object[] params = {type};
+         ResultSet results = dbh.runQuery("SELECT * FROM hotel WHERE typeofhotel = ?", params);
+         ArrayList<Array> tagList = new ArrayList<Array>();
+         ArrayList<String[]> resultList = new ArrayList<String[]>();
+
+         int columnCount = results.getMetaData().getColumnCount();
+         while (results.next()) {
+             String[] row = new String[columnCount];
+             for (int i = 0; i < columnCount - 1; i++) {
+                 row[i] = results.getString(i + 1);
+             }
+             tagList.add(results.getArray(10));
+             row[10] = results.getString(11);
+             resultList.add(row);
+         }
+         int size = resultList.size();
+         Hotel[] hotels = new Hotel[size];
+         for(int i = 0; i < size; i++) {
+             String[] row = resultList.get(i);
+             Hotel hotel = new Hotel();
+             hotel.setId(Integer.parseInt(row[8]));
+             hotel.setName(row[0]);
+             hotel.setAddress(row[1]);
+             hotel.setType(row[2]);
+             hotel.setDescription(row[3]);
+             hotel.setPhoneNumber(row[4]);
+             hotel.setStarCount(Double.parseDouble(row[5]));
+             hotel.setAvgPrice(Double.parseDouble(row[6]));
+             hotel.setCheckoutTime(row[7]);
+             hotel.setRating(Double.parseDouble((row[8])));
+             String tmp = resultList.get(i).toString();
+             tmp = tmp.substring(1, tmp.length()-1);
+             String[] tags = tmp.split(",");
+             hotel.setTags(tags);
+
+             hotels[i] = hotel;
+         }
+         return hotels;
+     }
  }

@@ -120,4 +120,3 @@ Hér eru okkar hugmyndir um möguleg gildi á þessum gagnagrunnsdálkum
   tags: wheelchair access, wifi, tv, mini-bar, safety deposit box, room service, smoking
          gym, bar, restaurant, spa, gym, breakfast, swimming pool,  vegan, cancellation fee, conference room
          youth, business, romantic, relaxation, family friendly
-

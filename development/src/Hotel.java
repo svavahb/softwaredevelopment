@@ -11,12 +11,11 @@ public class Hotel {
     private String phoneNumber;
     private String description;
     private double starCount;
-    private double rating; //????
+    private double rating;
     private Room[] rooms;
     private String[] tags;
     private double avgPrice;
     private String checkoutTime;
-    //private DayTrip[] dayTours;
 
     public Hotel() {
         reviews = new Review[0];
@@ -154,11 +153,8 @@ public class Hotel {
         this.checkoutTime = checkoutTime;
     }
 
-    //public DayTrip[] getDayTours() {
-    //    return dayTours;
-    //}
-
-    //public void setDayTours(DayTrip[] dayTours) {
-    //    this.dayTours = dayTours;
-    //}
+    public void updateRating(double newrating) {
+        int count = reviews.length;
+        rating = (rating+newrating)/(count+1);
+    }
 }

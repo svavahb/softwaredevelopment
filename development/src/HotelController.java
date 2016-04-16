@@ -123,6 +123,7 @@ public class HotelController {
         dbh.runQuery(queryStr, params);
         Review[] reviews = getReviews(hotel);
         hotel.setReviews(reviews);
+        hotel.updateRating(userRating);
 
         ArrayList<String[]> resultList = new ArrayList<String[]>();
         Object[] par = {java.sql.Date.valueOf(date), hotel.getId()};

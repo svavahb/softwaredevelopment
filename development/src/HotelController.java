@@ -172,8 +172,8 @@ public class HotelController {
         Object[] params = {java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate),
                             java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate), minimumStars, maxPrice};
         String queryStr = "SELECT DISTINCT hotelname, address, typeofhotel, hotel.description, phonenumber, starcount, avgprice, "
-                + "checkouttime, hotel.id, tags, rating  FROM hotel, room WHERE hotel.id=room.hotelid AND room.id NOT IN (SELECT roomid "
-                + "FROM booking WHERE (startdate BETWEEN ? AND ?) OR (enddate BETWEEN ? AND ?)) AND "
+                + "checkouttime, hotel.id, rating, tags  FROM hotel, room WHERE hotel.id=room.hotelid AND room.id IN "
+                + "(SELECT roomid FROM booking WHERE (startdate NOT BETWEEN ? AND ?) OR (enddate NOT BETWEEN ? AND ?)) AND "
                 + "starcount>=? AND avgprice<=?";
         ResultSet result = dbh.runQuery(queryStr, params);
         ArrayList<String[]> resultList = new ArrayList<String[]>();
@@ -185,8 +185,7 @@ public class HotelController {
             for (int i = 0; i < columnCount - 1; i++) {
                 row[i] = result.getString(i + 1);
             }
-            tagList.add(result.getArray(10));
-            row[10] = result.getString(11);
+            tagList.add(result.getArray(11));
             resultList.add(row);
         }
 

@@ -94,10 +94,10 @@ public class HotelControllerTest {
 
     @Test
     public void testFindHotelsWithAvailableRooms() throws Exception {
-        String start = "2020-5-19";
-        String end = "2020-5-20";
+        String start = "2020-05-09";
+        String end = "2020-05-11";
         Hotel[] test = hcontroller.findHotelWithAvailableRooms(start, end, 1, 5000000);
-        assertNotNull(test);
+        assertNotNull(test[0]);
     }
 
     @org.junit.Test

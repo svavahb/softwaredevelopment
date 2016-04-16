@@ -114,11 +114,11 @@ svava sökkar
 
   TO DO:
   * klára dbhelper X
-  * klára hotel
-  * klára room
-  * klára review
-  * klára booking
-  * klára hotelcontroller
+  * klára hotel X
+  * klára room X
+  * klára review X
+  * klára booking X
+  * klára hotelcontroller X
   * klára bookingcontroller X
-  * bæta við getHotelsByTags
+  * bæta við getHotelsByTags X
 

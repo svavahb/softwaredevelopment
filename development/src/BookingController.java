@@ -16,15 +16,16 @@ public class BookingController {
     }
 
     public Booking getBooking(int id) throws SQLException {
-        Object[] params = {(Integer) id};
-        ResultSet dbresults = dbh.runQuery("SELECT * FROM booking WHERE id=?", params);
+        Object[] params = {id};
+        ResultSet dbresults = dbh.runQuery("SELECT * FROM booking WHERE id = ?", params);
         String[] results = new String[9];
         while(dbresults.next()) {
-            for(int j=1; j<9; j++) {
+            for(int j=1; j<=9; j++) {
                 results[j-1] = dbresults.getString(j);
             }
         }
-        Booking book = new Booking(Integer.parseInt(results[0]));
+        Booking book = new Booking();
+        book.setId(Integer.parseInt(results[0]));
         book.setHotelId(Integer.parseInt(results[1]));
         book.setRoomId(Integer.parseInt(results[2]));
         book.setPhoneNr(results[3]);
@@ -36,9 +37,13 @@ public class BookingController {
         return book;
     }
 
+    public Booking getBooking(String id) throws SQLException {
+        return getBooking(Integer.parseInt(id));
+    }
+
     public void deleteBooking(int id) {
         Object[] params = {(Integer) id};
-        dbh.runQuery("DELETE * FROM hotel WHERE id=?", params);
+        dbh.runQuery("DELETE FROM booking WHERE id=?", params);
     }
 
     public Booking[] getBookingsByCustomer(String customerName) throws SQLException {
@@ -59,7 +64,8 @@ public class BookingController {
         int size = resultList.size();
         Booking[] bookings = new Booking[size];
         for (int j = 0; j < size; j++) {
-            Booking book = new Booking(Integer.parseInt((String) resultList.get(j)[0]));
+            Booking book = new Booking();
+            book.setId(Integer.parseInt((String) resultList.get(j)[0]));
             book.setHotelId(Integer.parseInt((String) resultList.get(j)[1]));
             book.setRoomId(Integer.parseInt((String) resultList.get(j)[2]));
             book.setPhoneNr((String) resultList.get(j)[3]);
@@ -78,7 +84,7 @@ public class BookingController {
     public Booking[] getBookings(Hotel hotel) throws SQLException {
         Object[] params = {hotel.getId()};
         ResultSet results = dbh.runQuery("SELECT * FROM booking WHERE hotelid=?", params);
-        ArrayList<Object[]> resultList = new ArrayList<Object[]>();
+        ArrayList<String[]> resultList = new ArrayList<String[]>();
 
         int columnCount = results.getMetaData().getColumnCount();
 
@@ -93,26 +99,48 @@ public class BookingController {
         int size = resultList.size();
         Booking[] bookings = new Booking[size];
         for (int j = 0; j < size; j++) {
-            Booking book = new Booking(Integer.parseInt((String) resultList.get(j)[0]));
-            book.setHotelId(Integer.parseInt((String) resultList.get(j)[1]));
-            book.setRoomId(Integer.parseInt((String) resultList.get(j)[2]));
-            book.setPhoneNr((String) resultList.get(j)[3]);
-            book.setCustomerName((String) resultList.get(j)[4]);
-            book.setEmail((String) resultList.get(j)[5]);
-            book.setCreditCardNr((String) resultList.get(j)[6]);
-            book.setStartDate((String) resultList.get(j)[7]);
-            book.setStartDate((String) resultList.get(j)[8]);
-
+            String[] row = resultList.get(j);
+            Booking book = new Booking();
+            book.setId(Integer.parseInt(row[0]));
+            book.setHotelId(Integer.parseInt(row[1]));
+            book.setRoomId(Integer.parseInt(row[2]));
+            book.setPhoneNr(row[3]);
+            book.setCustomerName(row[4]);
+            book.setEmail(row[5]);
+            book.setCreditCardNr(row[6]);
+            book.setStartDate(row[7]);
+            book.setStartDate(row[8]);
             bookings[j] = book;
         }
-        return null;
+        return bookings;
     }
 
-    public void saveBooking(Booking booking) {
-        Object[] params = {(Integer) Booking.getHotel().getId(), Booking.getRooms()[0].getId(),
-                Booking.getPhoneNr(), Booking.getCustomerName(), Booking.getEmail(), Booking.getCreditCardNr(), Booking.getStartDate(), Booking.getEndDate()};
-        dbh.runQuery("INSERT INTO hotel(hotelid, roomid, phonenumber, customername, " +
+    public Booking saveBooking(Booking booking) throws SQLException {
+        Object[] params = {Booking.getHotelId(), Booking.getRoomId(), Booking.getPhoneNr(), Booking.getCustomerName(),
+                Booking.getEmail(), Booking.getCreditCardNr(), java.sql.Date.valueOf(Booking.getStartDate()),
+                java.sql.Date.valueOf(Booking.getEndDate())};
+        dbh.runQuery("INSERT INTO booking(hotelid, roomid, phonenumber, customername, " +
                 "email, creditcardnumber, startdate, enddate) " +
-                "VALUES ('?','?','?','?','?','?','?','?')", params);
+                "VALUES (?,?,?,?,?,?,?,?)", params);
+
+
+        Object[] par = {booking.getHotelId(), booking.getRoomId(), java.sql.Date.valueOf(booking.getStartDate())};
+        ResultSet dbresults = dbh.runQuery("SELECT id FROM booking WHERE hotelid = ? AND roomid = ? AND startdate = ?", par);
+        while(dbresults.next()) {
+            booking.setId(dbresults.getInt(1));
+        }
+        return booking;
+    }
+
+
+
+    public static void main(String[] args) throws SQLException {
+        BookingController bcontroller = new BookingController();
+        HotelController hcontroller = new HotelController();
+        Booking book = bcontroller.getBooking(5);
+        Hotel holt = hcontroller.getHotel("Hotel Holt");
+        System.out.println(holt);
+        Booking[] books = bcontroller.getBookings(holt);
+        System.out.print(books);
     }
 }

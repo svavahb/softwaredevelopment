@@ -3,17 +3,25 @@ import static org.junit.Assert.*;
 public class BookingControllerTest {
 
     private BookingController bcontroller = new BookingController();
+    private HotelController hcontroller;
     private Booking book;
     private Booking testbooking;
+    private Hotel hotel;
 
     @org.junit.Before
     public void setUp() throws Exception {
-        book = new Booking(1);
+        hcontroller = new HotelController();
+        hotel = hcontroller.getHotel("Hilton");
+        book = new Booking();
         book.setEmail("palli@gmail.com");
+        book.setHotelId(hotel.getId());
+        book.setRoomId(20);
+        book.setPhoneNr("894-7896");
+        book.setCreditCardNr("4567894512345698");
         book.setCustomerName("palli");
         book.setStartDate("2016-05-19");
         book.setEndDate("2016-05-20");
-        bcontroller.saveBooking(book);
+        book = bcontroller.saveBooking(book);
     }
 
     @org.junit.After
@@ -42,26 +50,23 @@ public class BookingControllerTest {
     //ath hvort skili ekki error ef við setjum inn streng með tölum (aðferðin ætti að parsa það yfir í int)
     @org.junit.Test
     public void testIntStringGetBooking() throws Exception {
-        testbooking = bcontroller.getBooking(1);
-        assertEquals(testbooking.getId(), 1);
+        String id = ""+book.getId();
+        testbooking = bcontroller.getBooking(id);
+        assertEquals(testbooking.getId(), book.getId());
     }
 
     @org.junit.Test
     public void testgetBooking() throws Exception {
-        Booking btest = bcontroller.getBooking(1);
+        Booking btest = bcontroller.getBooking(book.getId());
         assertNotNull(btest);
-        assertEquals(btest.getId(), 1);
-        assertEquals(btest.getCustomerName(),"palli");
-        assertEquals(btest.getEmail(),"palli@gmail.com");
-        assertEquals(btest.getStartDate(),"2016-05-19");
-        assertEquals(btest.getEndDate(),"2016-05-20");
+        assertEquals(btest.getId(), book.getId());
     }
 
     @org.junit.Test
     public void testgetBookings() throws Exception {
-        Booking[] bfylki = bcontroller.getBookings(book.getHotel());
+        Booking[] bfylki = bcontroller.getBookings(hotel);
         assertNotNull(bfylki);
-        assertEquals(bfylki[0].getId(), 1);
+        assertEquals(bfylki[1].getId(), book.getId());
     }
 
     @org.junit.Test

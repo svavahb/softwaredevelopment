@@ -90,10 +90,10 @@ public class HotelController {
         tagstring = tagstring.substring(1,tagstring.length()-1);
         tagstring = "'{"+tagstring+"}');";
         Object[] params = {hotel.getName(), hotel.getAddress(), hotel.getType(), hotel.getDescription(), hotel.getPhoneNumber(),
-                hotel.getStarCount(), hotel.getAvgPrice(), hotel.getCheckoutTime()};
+                hotel.getStarCount(), hotel.getAvgPrice(), hotel.getCheckoutTime(), hotel.getRating()};
         String queryStr = "INSERT INTO hotel(hotelname, address, typeofhotel, " +
                 "description, phonenumber, starcount, avgprice, checkouttime, " +
-                "tags) VALUES(?, ?, ?, ?, ?, ?, " +
+                "rating, tags) VALUES(?, ?, ?, ?, ?, ?, " +
                 "?, ?, "+ tagstring;
         dbh.runQuery(queryStr, params);
 

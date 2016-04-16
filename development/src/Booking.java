@@ -13,14 +13,14 @@ public class Booking {
     private static String endDate;
     private static Room[] rooms;
     private static Hotel hotel;
-    private int hotelId;
-    private int roomId;
+    private static int hotelId;
+    private static int roomId;
 
     //djöfull er halldóra fkn heimsk wow
 
     //Smiður
-    public Booking( int id) {
-        this.id = id;
+    public Booking() {
+
     }
 
     public void setId(int id) {
@@ -30,6 +30,8 @@ public class Booking {
     public int getId(){ return id;}
 
     public void setHotelId(int id) {this.hotelId = id;}
+
+    public static int getHotelId() { return hotelId; }
 
     public static String getPhoneNr() {
         return phoneNr;
@@ -80,6 +82,8 @@ public class Booking {
     }
 
     public void setRoomId(int id) {this.roomId = id;}
+
+    public static int getRoomId() { return roomId; }
 
     public static Room[] getRooms() {
         return rooms;

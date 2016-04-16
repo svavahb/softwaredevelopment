@@ -131,16 +131,4 @@ public class BookingController {
         }
         return booking;
     }
-
-
-
-    public static void main(String[] args) throws SQLException {
-        BookingController bcontroller = new BookingController();
-        HotelController hcontroller = new HotelController();
-        Booking book = bcontroller.getBooking(5);
-        Hotel holt = hcontroller.getHotel("Hotel Holt");
-        System.out.println(holt);
-        Booking[] books = bcontroller.getBookings(holt);
-        System.out.print(books);
-    }
 }

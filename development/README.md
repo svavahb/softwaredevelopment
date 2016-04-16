@@ -122,3 +122,9 @@ svava sökkar
   * klára bookingcontroller X
   * bæta við getHotelsByTags X
 
+  types of hotels: hotel, hostel, guesthouse, motel, bed&breakfast
+  types of bathrooms: shower, bathtub
+  tags: wheelchair access, wifi, tv, mini-bar, safety deposit box, room service, smoking
+         gym, bar, restaurant, spa, gym, breakfast, swimming pool,  vegan, cancellation fee, conference room
+         youth, business, romantic, relaxation, family friendly
+

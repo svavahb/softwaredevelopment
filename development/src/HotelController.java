@@ -1,13 +1,12 @@
  import java.sql.*;
  import java.util.*;
 
- //halldóra hálfviti
-
  /**
  * Created by Svava Hildur on 16/03/16.
  */
 
 public class HotelController {
+     // klasi sem sér um tengingu við gagnagrunn
      private dbHelper dbh;
 
 

@@ -16,8 +16,6 @@ public class Booking {
     private static int hotelId;
     private static int roomId;
 
-    //djöfull er halldóra fkn heimsk wow
-
     //Smiður
     public Booking() {
 

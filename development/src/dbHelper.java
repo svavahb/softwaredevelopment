@@ -1,6 +1,4 @@
 import java.sql.*;
-import java.util.*;
-import java.util.Arrays;
 
 /**
  * Created by Svava Hildur on 20/03/16.
@@ -40,27 +38,11 @@ public class dbHelper {
             else {
                 stmt.executeUpdate();
             }
-            //stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
         return result;
-    }
-
-    public static void main(String[] args) throws SQLException {
-        dbHelper db = new dbHelper();
-        Object[] params = {"test"};
-        String queryStr = "SELECT * FROM hotel WHERE hotelname = ?";
-        ResultSet result = db.runQuery(queryStr, params);
-        ArrayList<Array> taglist = new ArrayList<Array>();
-        while(result.next()) {
-            taglist.add(result.getArray(10));
-        }
-        String tmp = taglist.get(0).toString();
-        tmp = tmp.substring(1, tmp.length()-1);
-        String[] tags = tmp.split(",");
-        System.out.print(tags[0]);
     }
 }

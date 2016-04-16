@@ -9,7 +9,8 @@ public class HotelController {
      // klasi sem sér um tengingu við gagnagrunn
      private dbHelper dbh;
 
-
+    // Nær í hótel með nafninu name. Ef fleiri en eitt hótel hafa sama nafn (ætti ekki að gerast),
+    // fæst fyrsta með því nafni
     public Hotel getHotel(String name) throws SQLException {
         Object[] params = {name};
         ResultSet dbresults = dbh.runQuery("SELECT * FROM hotel WHERE hotelname=?", params);
@@ -42,6 +43,7 @@ public class HotelController {
 
     }
 
+     // nær í öll hótel úr gagnagrunni, þægilegt að nota til að birta lista yfir öll hótelin
     public Hotel[] getAllHotels() throws SQLException {
         Object[] params = {(Integer) 1};
         ResultSet results = dbh.runQuery("SELECT * FROM hotel WHERE ?=1", params);
@@ -83,7 +85,7 @@ public class HotelController {
         return hotels;
     }
 
-
+    // vistar hótel í gagnagrunni, og skilar sama hóteli sem Hotel hlut þar sem allar breytur innihalda rétt gildi
     public Hotel saveHotel(Hotel hotel) throws SQLException {
         String tagstring = Arrays.toString(hotel.getTags());
         tagstring = tagstring.substring(1,tagstring.length()-1);
@@ -104,6 +106,7 @@ public class HotelController {
         return hotel;
     }
 
+     // eyðir hóteli úr gagnagrunni, og öllum bókunum/herbergjum/umsögnum sem tengjast því
     public void deleteHotel(Hotel hotel) {
         Object[] params = {hotel.getId()};
         dbh.runQuery("DELETE FROM room WHERE hotelid = ?", params);
@@ -112,6 +115,7 @@ public class HotelController {
         dbh.runQuery("DELETE FROM hotel WHERE id=?", params);
     }
 
+     // vistar inn umsögn fyrir ákveðið hótel, bæði í gagnagrunni og í viðeigandi tilviksbreytu Hotel hlutar
     public Review giveReview(Hotel hotel, String user, String reviewtext, double userRating, String date) throws SQLException {
         Object[] params = {hotel.getId(), user, 0, reviewtext, userRating, java.sql.Date.valueOf(date)  };
         String queryStr = "INSERT INTO  review(hotelid, username, helpcount," +
@@ -143,6 +147,7 @@ public class HotelController {
         return review;
     }
 
+     // bætir herbergi í gagnagrunn, og viðeigandi tilviksbreytu Hotel hlutar
     public Room addRoom(Hotel hotel, Room room) throws SQLException {
         Object[] params = {(Integer)hotel.getId(), (Integer)room.getNumberOfBeds(),
                 (Double)room.getSizeOfRoom(), room.getTypeOfBathroom(), (Integer)room.getRoomNumber(),
@@ -160,6 +165,7 @@ public class HotelController {
         return room;
     }
 
+     // eyðir herbergi úr gagnagrunni, og úr viðeigandi tilviksbreytu Hotel hlutar
     public void removeRoom(Hotel hotel, Room room) throws SQLException {
         Object[] params = {room.getId()};
         dbh.runQuery("DELETE FROM room WHERE room.id=?", params);
@@ -167,6 +173,8 @@ public class HotelController {
         hotel.setRooms(rooms);
     }
 
+     // Finnur öll hótel sem hafa laus herbergi á tímabilinu startDate-endDate, með lágmarksfjölda stjarna minimumStars
+     // og hámarksverð maxPrice
     public Hotel[] findHotelWithAvailableRooms(String startDate, String endDate, double minimumStars, int maxPrice) throws SQLException {
         Object[] params = {java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate),
                             java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate), minimumStars, maxPrice};
@@ -213,6 +221,7 @@ public class HotelController {
         return hotels.toArray(new Hotel[hotels.size()]);
     }
 
+     // Finnur öll hótel sem hafa tög sem passa við öll tögin í tags[] (fyrir checkbox)
      public Hotel[] findHotelByTags(String[] tags) throws SQLException {
          Object[] params = tags;
          String queryStr = "SELECT * FROM hotel WHERE ? = ANY (tags)";
@@ -260,6 +269,7 @@ public class HotelController {
 
      }
 
+     // skilar handahófskenndu hóteli, fyrir Hotel of the Day aukavirkni
     public Hotel getRandomHotelOfTheWeek() throws SQLException {
         Hotel[] hotels = getAllHotels();
         int size = hotels.length;
@@ -267,10 +277,12 @@ public class HotelController {
         return hotels[random];
     }
 
+     //smiður
     public HotelController() {
         dbh = new dbHelper();
     }
 
+     // skilar fylki með öllum umsögnum hótelsins hotel
     public Review[] getReviews(Hotel hotel) throws SQLException {
         Object[] params = {hotel.getId()};
         ResultSet results = dbh.runQuery("SELECT * FROM review WHERE hotelid = ?", params);
@@ -284,7 +296,6 @@ public class HotelController {
             }
             resultList.add(row);
         }
-        //mjá
         int size = resultList.size();
         Review[] reviews = new Review[size];
         for(int i=0; i<size; i++) {
@@ -302,6 +313,7 @@ public class HotelController {
         return reviews;
     }
 
+     // skilar fylki með öllum herbergjum hótelsins hotel
      public Room[] getRooms(Hotel hotel) throws SQLException {
          Object[] params = {hotel.getId()};
          ResultSet results = dbh.runQuery("SELECT * FROM room WHERE hotelid = ?", params);
@@ -315,7 +327,6 @@ public class HotelController {
              }
              resultList.add(row);
          }
-         //mjá
          int size = resultList.size();
          Room[] rooms = new Room[size];
          for(int i=0; i<size; i++) {
@@ -333,14 +344,5 @@ public class HotelController {
              rooms[i] = room;
          }
          return rooms;
-     }
-
-     public static void main(String[] args) throws SQLException {
-         HotelController hcontroller = new HotelController();
-
-         String start = "2020-5-19";
-         String end = "2020-5-20";
-         Hotel[] hotels = hcontroller.findHotelWithAvailableRooms(start, end, 0, 5000000);
-         System.out.print(hotels.length);
      }
  }

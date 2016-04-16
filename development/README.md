@@ -105,25 +105,18 @@ ALTER TABLE public.room
   OWNER TO postgres;
 
 
+*********
+* ANNAÐ *
+*********
 
+Hér eru okkar hugmyndir um möguleg gildi á þessum gagnagrunnsdálkum
 
-svava sökkar
-
-
-
-
-  TO DO:
-  * klára dbhelper X
-  * klára hotel X
-  * klára room X
-  * klára review X
-  * klára booking X
-  * klára hotelcontroller X
-  * klára bookingcontroller X
-  * bæta við getHotelsByTags X
-
+  Þessi tvö gætu verið birt einhvers staðar á "síðunni" um hvert hótel/herbergi
   types of hotels: hotel, hostel, guesthouse, motel, bed&breakfast
   types of bathrooms: shower, bathtub
+
+  Þetta var hugsað sem checkbox, þegar checkað er í eitt eða fleiri er hægt að nota aðferðina
+  findHotelByTags, og fá þá fylki með öllum hótelum sem passa við tögin.
   tags: wheelchair access, wifi, tv, mini-bar, safety deposit box, room service, smoking
          gym, bar, restaurant, spa, gym, breakfast, swimming pool,  vegan, cancellation fee, conference room
          youth, business, romantic, relaxation, family friendly

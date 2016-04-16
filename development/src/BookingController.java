@@ -117,7 +117,9 @@ public class BookingController {
         }
         return bookings;
     }
-    // vistar nýja bókun, þarf að tala inn allar upplýsingar um bókunina, sbr dbh.runQuery
+    // vistar nýja bókun, þarf að taka inn allar upplýsingar um bókunina, sbr dbh.runQuery
+    // ef herbergið er þegar bókað, skilar aðferðin null. Annars skilar hún bókunarhlut sem inniheldur
+    // allar réttar upplýsingar.
     public Booking saveBooking(Booking booking) throws Exception {
         //Object[] param = {booking.getHotelId(), booking.getRoomId(), booking.getStartDate(), booking.getEndDate(), booking.getStartDate(), booking.getEndDate()};
         Object[] param = {1};

@@ -116,7 +116,14 @@ Hér eru okkar hugmyndir um möguleg gildi á þessum gagnagrunnsdálkum
   types of bathrooms: shower, bathtub
 
   Þetta var hugsað sem checkbox, þegar checkað er í eitt eða fleiri er hægt að nota aðferðina
-  findHotelByTags, og fá þá fylki með öllum hótelum sem passa við tögin.
-  tags: wheelchair access, wifi, tv, mini-bar, safety deposit box, room service, smoking
-         gym, bar, restaurant, spa, gym, breakfast, swimming pool,  vegan, cancellation fee, conference room
-         youth, business, romantic, relaxation, family friendly
+  findHotelByTags, og fá þá fylki með öllum hótelum sem passa við tögin. Höfðum hugsað okkur að flokka tögin smá með millifyrirsögnum
+  tags: herbergin: wheelchair access, wifi, tv, mini-bar, safety deposit box, room service, smoking
+        almennt fyrir hótelið : gym, bar, restaurant, spa, gym, breakfast, swimming pool,  vegan, cancellation fee, conference room, good view
+        hvernig stemming er á hótelinu: youth, business, romantic, relaxation, family friendly
+
+
+  Höfðum hugsað okkur að það væri hægt að raða hótelum eftir verði(lægsta efst), erum með aðferð til þess sem við bættum við seint
+    hún er sortByPrice(hotel).
+
+  Viljum einnig að hægt sé að velja hotel by type ( aðferð sem við bættum við, er ekki á class diagram): aðferð -gethotelByType(hotel)
+

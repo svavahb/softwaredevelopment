@@ -118,10 +118,21 @@ public class BookingController {
         return bookings;
     }
     // vistar nýja bókun, þarf að tala inn allar upplýsingar um bókunina, sbr dbh.runQuery
-    public Booking saveBooking(Booking booking) throws SQLException {
-        Object[] params = {Booking.getHotelId(), Booking.getRoomId(), Booking.getPhoneNr(), Booking.getCustomerName(),
-                Booking.getEmail(), Booking.getCreditCardNr(), java.sql.Date.valueOf(Booking.getStartDate()),
-                java.sql.Date.valueOf(Booking.getEndDate())};
+    public Booking saveBooking(Booking booking) throws Exception {
+        //Object[] param = {booking.getHotelId(), booking.getRoomId(), booking.getStartDate(), booking.getEndDate(), booking.getStartDate(), booking.getEndDate()};
+        Object[] param = {1};
+        ResultSet result = dbh.runQuery("SELECT * FROM booking WHERE hotelid = 84 AND roomid = 25 "
+                +"AND ((startdate BETWEEN '2016-05-19' AND '2016-05-25') OR (enddate BETWEEN '2016-05-19' AND '2016-05-25') AND 1 = ?)", param);
+        while(result.next()) {
+            if(result.getString(1)!=null) {
+                System.out.println("Þetta herbergi er nú þegar bókað");
+                return null;
+            }
+        }
+
+        Object[] params = {booking.getHotelId(), booking.getRoomId(), booking.getPhoneNr(), booking.getCustomerName(),
+                booking.getEmail(), booking.getCreditCardNr(), java.sql.Date.valueOf(booking.getStartDate()),
+                java.sql.Date.valueOf(booking.getEndDate())};
         dbh.runQuery("INSERT INTO booking(hotelid, roomid, phonenumber, customername, " +
                 "email, creditcardnumber, startdate, enddate) " +
                 "VALUES (?,?,?,?,?,?,?,?)", params);
@@ -133,5 +144,19 @@ public class BookingController {
             booking.setId(dbresults.getInt(1));
         }
         return booking;
+    }
+
+    public static void main(String[] args) throws Exception {
+        BookingController bcontroller = new BookingController();
+        Booking book = new Booking();
+        book.setHotelId(84);
+        book.setRoomId(25);
+        book.setPhoneNr("45");
+        book.setCustomerName("hji");
+        book.setEmail("nj");
+        book.setCreditCardNr("hK");
+        book.setStartDate("2016-05-19");
+        book.setStartDate("2016-05-25");
+        book = bcontroller.saveBooking(book);
     }
 }

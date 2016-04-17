@@ -23,18 +23,7 @@ public class HotelController {
             }
             taglist.add(dbresults.getArray(12));
         }
-        Hotel hotel = new Hotel();
-        hotel.setId(Integer.parseInt(results[8]));
-        hotel.setName(results[0]);
-        hotel.setAddress(results[1]);
-        hotel.setType(results[2]);
-        hotel.setDescription(results[3]);
-        hotel.setPhoneNumber(results[4]);
-        hotel.setStarCount(Double.parseDouble(results[5]));
-        hotel.setAvgPrice(Double.parseDouble(results[6]));
-        hotel.setCheckoutTime(results[7]);
-        hotel.setRating(Double.parseDouble((results[9])));
-        hotel.setPlace(results[10]);
+        Hotel hotel = createHotel(results);
         String tmp = taglist.get(0).toString();
         tmp = tmp.substring(1, tmp.length()-1);
         String[] tags = tmp.split(",");
@@ -64,19 +53,8 @@ public class HotelController {
         Hotel[] hotels = new Hotel[size];
         for(int i = 0; i < size; i++) {
             String[] row = resultList.get(i);
-            Hotel hotel = new Hotel();
-            hotel.setId(Integer.parseInt(row[8]));
-            hotel.setName(row[0]);
-            hotel.setAddress(row[1]);
-            hotel.setType(row[2]);
-            hotel.setDescription(row[3]);
-            hotel.setPhoneNumber(row[4]);
-            hotel.setStarCount(Double.parseDouble(row[5]));
-            hotel.setAvgPrice(Double.parseDouble(row[6]));
-            hotel.setCheckoutTime(row[7]);
-            hotel.setRating(Double.parseDouble((row[9])));
-            hotel.setPlace(row[10]);
-            String tmp = resultList.get(i).toString();
+            Hotel hotel = createHotel(row);
+            String tmp = tagList.get(i).toString();
             tmp = tmp.substring(1, tmp.length()-1);
             String[] tags = tmp.split(",");
             hotel.setTags(tags);
@@ -202,18 +180,7 @@ public class HotelController {
         ArrayList<Hotel> hotels = new ArrayList<Hotel>(size);
         for(int i = 0; i < size; i++) {
             String[] row = resultList.get(i);
-            Hotel hotel = new Hotel();
-            hotel.setId(Integer.parseInt(row[8]));
-            hotel.setName(row[0]);
-            hotel.setAddress(row[1]);
-            hotel.setType(row[2]);
-            hotel.setDescription(row[3]);
-            hotel.setPhoneNumber(row[4]);
-            hotel.setStarCount(Double.parseDouble(row[5]));
-            hotel.setAvgPrice(Double.parseDouble(row[6]));
-            hotel.setCheckoutTime(row[7]);
-            hotel.setRating(Double.parseDouble((row[9])));
-            hotel.setPlace(row[10]);
+            Hotel hotel = createHotel(row);
             String tmp = tagList.get(i).toString();
             tmp = tmp.substring(1, tmp.length()-1);
             String[] tagstmp = tmp.split(",");
@@ -249,18 +216,7 @@ public class HotelController {
          ArrayList<Hotel> hotels = new ArrayList<Hotel>(size);
          for(int i = 0; i < size; i++) {
              String[] row = resultList.get(i);
-             Hotel hotel = new Hotel();
-             hotel.setId(Integer.parseInt(row[8]));
-             hotel.setName(row[0]);
-             hotel.setAddress(row[1]);
-             hotel.setType(row[2]);
-             hotel.setDescription(row[3]);
-             hotel.setPhoneNumber(row[4]);
-             hotel.setStarCount(Double.parseDouble(row[5]));
-             hotel.setAvgPrice(Double.parseDouble(row[6]));
-             hotel.setCheckoutTime(row[7]);
-             hotel.setRating(Double.parseDouble((row[9])));
-             hotel.setPlace(row[10]);
+             Hotel hotel = createHotel(row);
              String tmp = tagList.get(i).toString();
              tmp = tmp.substring(1, tmp.length()-1);
              String[] tagstmp = tmp.split(",");
@@ -382,19 +338,8 @@ public class HotelController {
          Hotel[] hotels = new Hotel[size];
          for(int i = 0; i < size; i++) {
              String[] row = resultList.get(i);
-             Hotel hotel = new Hotel();
-             hotel.setId(Integer.parseInt(row[8]));
-             hotel.setName(row[0]);
-             hotel.setAddress(row[1]);
-             hotel.setType(row[2]);
-             hotel.setDescription(row[3]);
-             hotel.setPhoneNumber(row[4]);
-             hotel.setStarCount(Double.parseDouble(row[5]));
-             hotel.setAvgPrice(Double.parseDouble(row[6]));
-             hotel.setCheckoutTime(row[7]);
-             hotel.setRating(Double.parseDouble((row[9])));
-             hotel.setPlace(row[10]);
-             String tmp = resultList.get(i).toString();
+             Hotel hotel = createHotel(row);
+             String tmp = tagList.get(i).toString();
              tmp = tmp.substring(1, tmp.length()-1);
              String[] tags = tmp.split(",");
              hotel.setTags(tags);
@@ -403,4 +348,21 @@ public class HotelController {
          }
          return hotels;
      }
+
+     private Hotel createHotel(String[] row) {
+         Hotel hotel = new Hotel();
+         hotel.setId(Integer.parseInt(row[8]));
+         hotel.setName(row[0]);
+         hotel.setAddress(row[1]);
+         hotel.setType(row[2]);
+         hotel.setDescription(row[3]);
+         hotel.setPhoneNumber(row[4]);
+         hotel.setStarCount(Double.parseDouble(row[5]));
+         hotel.setAvgPrice(Double.parseDouble(row[6]));
+         hotel.setCheckoutTime(row[7]);
+         hotel.setRating(Double.parseDouble((row[9])));
+         hotel.setPlace(row[10]);
+         return hotel;
+     }
+
  }

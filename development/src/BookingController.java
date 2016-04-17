@@ -1,6 +1,4 @@
-import javax.xml.transform.Result;
 import java.util.ArrayList;
-import java.util.Date;
 import java.sql.*;
 
 /**
@@ -25,16 +23,7 @@ public class BookingController {
                 results[j-1] = dbresults.getString(j);
             }
         }
-        Booking book = new Booking();
-        book.setId(Integer.parseInt(results[0]));
-        book.setHotelId(Integer.parseInt(results[1]));
-        book.setRoomId(Integer.parseInt(results[2]));
-        book.setPhoneNr(results[3]);
-        book.setCustomerName(results[4]);
-        book.setEmail(results[5]);
-        book.setCreditCardNr(results[6]);
-        book.setStartDate(results[7]);
-        book.setStartDate(results[8]);
+        Booking book = createBooking(results);
         return book;
     }
 
@@ -51,7 +40,7 @@ public class BookingController {
     public Booking[] getBookingsByCustomer(String customerName) throws SQLException {
         Object[] params = {customerName};
         ResultSet results = dbh.runQuery("SELECT * FROM booking WHERE customername=?", params);
-        ArrayList<Object[]> resultList = new ArrayList<Object[]>();
+        ArrayList<String[]> resultList = new ArrayList<String[]>();
 
         int columnCount = results.getMetaData().getColumnCount();
 
@@ -66,19 +55,9 @@ public class BookingController {
         int size = resultList.size();
         Booking[] bookings = new Booking[size];
         for (int j = 0; j < size; j++) {
-            Booking book = new Booking();
-            book.setId(Integer.parseInt((String) resultList.get(j)[0]));
-            book.setHotelId(Integer.parseInt((String) resultList.get(j)[1]));
-            book.setRoomId(Integer.parseInt((String) resultList.get(j)[2]));
-            book.setPhoneNr((String) resultList.get(j)[3]);
-            book.setCustomerName((String) resultList.get(j)[4]);
-            book.setEmail((String) resultList.get(j)[5]);
-            book.setCreditCardNr((String) resultList.get(j)[6]);
-            book.setStartDate((String) resultList.get(j)[7]);
-            book.setStartDate((String) resultList.get(j)[8]);
-
+            String[] row = resultList.get(j);
+            Booking book = createBooking(row);
             bookings[j] = book;
-
         }
         return bookings;
     }
@@ -103,16 +82,7 @@ public class BookingController {
         Booking[] bookings = new Booking[size];
         for (int j = 0; j < size; j++) {
             String[] row = resultList.get(j);
-            Booking book = new Booking();
-            book.setId(Integer.parseInt(row[0]));
-            book.setHotelId(Integer.parseInt(row[1]));
-            book.setRoomId(Integer.parseInt(row[2]));
-            book.setPhoneNr(row[3]);
-            book.setCustomerName(row[4]);
-            book.setEmail(row[5]);
-            book.setCreditCardNr(row[6]);
-            book.setStartDate(row[7]);
-            book.setStartDate(row[8]);
+            Booking book = createBooking(row);
             bookings[j] = book;
         }
         return bookings;
@@ -148,17 +118,17 @@ public class BookingController {
         return booking;
     }
 
-    public static void main(String[] args) throws Exception {
-        BookingController bcontroller = new BookingController();
+    private Booking createBooking(String[] row) {
         Booking book = new Booking();
-        book.setHotelId(84);
-        book.setRoomId(25);
-        book.setPhoneNr("45");
-        book.setCustomerName("hji");
-        book.setEmail("nj");
-        book.setCreditCardNr("hK");
-        book.setStartDate("2016-05-19");
-        book.setStartDate("2016-05-25");
-        book = bcontroller.saveBooking(book);
+        book.setId(Integer.parseInt(row[0]));
+        book.setHotelId(Integer.parseInt(row[1]));
+        book.setRoomId(Integer.parseInt(row[2]));
+        book.setPhoneNr(row[3]);
+        book.setCustomerName(row[4]);
+        book.setEmail(row[5]);
+        book.setCreditCardNr(row[6]);
+        book.setStartDate(row[7]);
+        book.setStartDate(row[8]);
+        return book;
     }
 }

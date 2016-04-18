@@ -11,6 +11,13 @@ public class HotelController {
 
     // Nær í hótel með nafninu name. Ef fleiri en eitt hótel hafa sama nafn (ætti ekki að gerast),
     // fæst fyrsta með því nafni
+
+     /**
+      * Leitar að hóteli eftir nafni, og skilar fyrsta sem finnst í gagnagrunni sem passar
+      * @param name
+      * @return Hoteli úr gagnagrunni með nafninu name
+      * @throws SQLException
+      */
     public Hotel getHotel(String name) throws SQLException {
         Object[] params = {name};
         ResultSet dbresults = dbh.runQuery("SELECT * FROM hotel WHERE hotelname=?", params);
@@ -34,6 +41,12 @@ public class HotelController {
     }
 
      // nær í öll hótel úr gagnagrunni, þægilegt að nota til að birta lista yfir öll hótelin
+
+     /**
+      * Nær í öll hótel úr gagnagrunninum
+      * @return fylki með Hotel hlutum, öllum hótelum úr gagnagrunninum
+      * @throws SQLException
+      */
     public Hotel[] getAllHotels() throws SQLException {
         Object[] params = {(Integer) 1};
         ResultSet results = dbh.runQuery("SELECT * FROM hotel WHERE ?=1", params);
@@ -65,6 +78,13 @@ public class HotelController {
     }
 
     // vistar hótel í gagnagrunni, og skilar sama hóteli sem Hotel hlut þar sem allar breytur innihalda rétt gildi
+
+     /**
+      * Vistar hótel í gagnagrunni og býr til hótel hlut með réttum tilviksbreytum
+      * @param hotel
+      * @return Hotel sem inniheldur allar réttar upplýsingar um hótelið sem var tekið inn
+      * @throws SQLException
+      */
     public Hotel saveHotel(Hotel hotel) throws SQLException {
         String tagstring = Arrays.toString(hotel.getTags());
         tagstring = tagstring.substring(1,tagstring.length()-1);
@@ -85,7 +105,11 @@ public class HotelController {
         return hotel;
     }
 
-     // eyðir hóteli úr gagnagrunni, og öllum bókunum/herbergjum/umsögnum sem tengjast því
+
+     /**
+      * Eyðir hóteli úr gagnagrunni
+      * @param hotel
+      */
     public void deleteHotel(Hotel hotel) {
         Object[] params = {hotel.getId()};
         dbh.runQuery("DELETE FROM room WHERE hotelid = ?", params);
@@ -94,7 +118,16 @@ public class HotelController {
         dbh.runQuery("DELETE FROM hotel WHERE id=?", params);
     }
 
-     // vistar inn umsögn fyrir ákveðið hótel, bæði í gagnagrunni og í viðeigandi tilviksbreytu Hotel hlutar
+     /**
+      * Vistar umsögn um hótel, bæði í gagnagrunni og viðeigandi tilviksbreytu Hotel hlutar
+      * @param hotel
+      * @param user username/nafn
+      * @param reviewtext texti umsagnar
+      * @param userRating einkunn notanda um hótel
+      * @param date dagsetning sem það var skrifað
+      * @return Review hlut sem inniheldur allar upplýsingar um umsögnina sem var vistuð
+      * @throws SQLException
+      */
     public Review giveReview(Hotel hotel, String user, String reviewtext, double userRating, String date) throws SQLException {
         Object[] params = {hotel.getId(), user, 0, reviewtext, userRating, java.sql.Date.valueOf(date)  };
         String queryStr = "INSERT INTO  review(hotelid, username, helpcount," +
@@ -128,6 +161,14 @@ public class HotelController {
     }
 
      // bætir herbergi í gagnagrunn, og viðeigandi tilviksbreytu Hotel hlutar
+
+     /**
+      * Bætir herbergi í gagnagrunn, og viðeigandi tilviksbreytu Hotel hlutar
+      * @param hotel
+      * @param room
+      * @return skilar Room hlut með öllum réttum upplýsingum
+      * @throws SQLException
+      */
     public Room addRoom(Hotel hotel, Room room) throws SQLException {
         Object[] params = {(Integer)hotel.getId(), (Integer)room.getNumberOfBeds(),
                 (Double)room.getSizeOfRoom(), room.getTypeOfBathroom(), (Integer)room.getRoomNumber(),
@@ -145,7 +186,12 @@ public class HotelController {
         return room;
     }
 
-     // eyðir herbergi úr gagnagrunni, og úr viðeigandi tilviksbreytu Hotel hlutar
+     /**
+      * Eyðir herbergi úr gagnagrunni og viðeigandi tilviksbreytu Hotel hlutar
+      * @param hotel
+      * @param room
+      * @throws SQLException
+      */
     public void removeRoom(Hotel hotel, Room room) throws SQLException {
         Object[] params = {room.getId()};
         dbh.runQuery("DELETE FROM room WHERE room.id=?", params);
@@ -155,6 +201,18 @@ public class HotelController {
 
      // Finnur öll hótel sem hafa laus herbergi á tímabilinu startDate-endDate, með lágmarksfjölda stjarna minimumStars
      // og hámarksverð maxPrice
+
+     /**
+      * FInnur öll hótel sem hafa laus herbergi á tímabilinu startdate-enddate, með lágmarksfjölda stjarna minimum stars,
+      * hámarksverð maxPrice og staðsett í location
+      * @param startDate
+      * @param endDate
+      * @param minimumStars
+      * @param maxPrice
+      * @param place
+      * @return skilar hóteli sem passar við skilyrðin
+      * @throws SQLException
+      */
     public Hotel[] findHotelWithAvailableRooms(String startDate, String endDate, double minimumStars, int maxPrice, String place) throws SQLException {
         Object[] params = {java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate),
                             java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate), minimumStars, maxPrice, place};
@@ -191,7 +249,12 @@ public class HotelController {
         return hotels.toArray(new Hotel[hotels.size()]);
     }
 
-     // Finnur öll hótel sem hafa tög sem passa við öll tögin í tags[] (fyrir checkbox)
+     /**
+      * FInnur hótel sem passar við öll tögin í fylkinu tags
+      * @param tags fylki af tögum
+      * @return skilar fylki af hótelum sem passa við öll tögin
+      * @throws SQLException
+      */
      public Hotel[] findHotelByTags(String[] tags) throws SQLException {
          Object[] params = tags;
          String queryStr = "SELECT * FROM hotel WHERE ? = ANY (tags)";
@@ -228,7 +291,12 @@ public class HotelController {
 
      }
 
-     // skilar handahófskenndu hóteli, fyrir Hotel of the Day aukavirkni
+
+     /**
+      * Skilar einhverju handahófskenndu hóteli
+      * @return Hotel af handahófi
+      * @throws SQLException
+      */
     public Hotel getRandomHotelOfTheWeek() throws SQLException {
         Hotel[] hotels = getAllHotels();
         int size = hotels.length;
@@ -236,12 +304,21 @@ public class HotelController {
         return hotels[random];
     }
 
-     //smiður
+     /**
+      * smiður
+      */
     public HotelController() {
         dbh = new dbHelper();
     }
 
      // skilar fylki með öllum umsögnum hótelsins hotel
+
+     /**
+      * Nær í allar umsagnir viðeigandi hótels
+      * @param hotel
+      * @return Review fylki
+      * @throws SQLException
+      */
     public Review[] getReviews(Hotel hotel) throws SQLException {
         Object[] params = {hotel.getId()};
         ResultSet results = dbh.runQuery("SELECT * FROM review WHERE hotelid = ?", params);
@@ -273,6 +350,13 @@ public class HotelController {
     }
 
      // skilar fylki með öllum herbergjum hótelsins hotel
+
+     /**
+      * FInnur öll herbergi tiltekins hótels
+      * @param hotel
+      * @return Room fylki
+      * @throws SQLException
+      */
      public Room[] getRooms(Hotel hotel) throws SQLException {
          Object[] params = {hotel.getId()};
          ResultSet results = dbh.runQuery("SELECT * FROM room WHERE hotelid = ?", params);
@@ -305,7 +389,11 @@ public class HotelController {
          return rooms;
      }
 
-     // raðar hótelum í hækkandi röð
+     /**
+      * Raðar hótelum eftir verði í hækkandi röð
+      * @param hotels
+      * @return fylki af Hotel með verð í hækkandi röð
+      */
      public Hotel[] sortByPrice(Hotel[] hotels) {
          for (int i=1; i<hotels.length; i++) {
              Hotel temp = hotels[i];
@@ -319,6 +407,13 @@ public class HotelController {
      }
 
      // skilar öllum hótelum af sömu týpu
+
+     /**
+      * Nær í öll hótel af týpunni type
+      * @param type
+      * @return Fylki af hótelum með sömu type
+      * @throws SQLException
+      */
      public Hotel[] getHotelsByType( String type) throws SQLException {
          Object[] params = {type};
          ResultSet results = dbh.runQuery("SELECT * FROM hotel WHERE typeofhotel = ?", params);

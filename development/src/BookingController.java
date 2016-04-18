@@ -14,6 +14,13 @@ public class BookingController {
     }
 
     //leitar að bókun eftir id og skilar henni sem fylki.
+
+    /**
+     * Finnur bókun eftir id númeri
+     * @param id
+     * @return Booking með réttum upplýsingum
+     * @throws SQLException
+     */
     public Booking getBooking(int id) throws SQLException {
         Object[] params = {id};
         ResultSet dbresults = dbh.runQuery("SELECT * FROM booking WHERE id = ?", params);
@@ -27,16 +34,30 @@ public class BookingController {
         return book;
     }
 
-    // aðferð sem nær í bókun eftir id á strengja formi
+    /**
+     * Finnur bókun eftir id númeri
+     * @param id strengur sem er parsaður yfir í int
+     * @return Booking með öllum réttum upplýsingum
+     * @throws SQLException
+     */
     public Booking getBooking(String id) throws SQLException {
         return getBooking(Integer.parseInt(id));
     }
-    // eyðir úr bókun eftir id
+
+    /**
+     * Eyðir bókun eftir id
+     * @param id
+     */
     public void deleteBooking(int id) {
         Object[] params = {(Integer) id};
         dbh.runQuery("DELETE FROM booking WHERE id=?", params);
     }
-    // skilar fylki með öllum bókunum sem eru skráðar á einhvern ákveðinn viðskiptavin
+    /**
+     * Finnur allar bókanir sem eru skráðir á ákveðinn viðskiptavin
+     * @param customerName
+     * @return Booking fylki með bókunum viðskiptavinar
+     * @throws SQLException
+     */
     public Booking[] getBookingsByCustomer(String customerName) throws SQLException {
         Object[] params = {customerName};
         ResultSet results = dbh.runQuery("SELECT * FROM booking WHERE customername=?", params);
@@ -62,7 +83,13 @@ public class BookingController {
         return bookings;
     }
 
-    // skilar fylki með öllum bókunum sem skráðar eru á ákveðið hótel
+
+    /**
+     * Finnur allar bókanir eins hótels
+     * @param hotel
+     * @return Booking fylki með bókunum eins hótels
+     * @throws SQLException
+     */
     public Booking[] getBookings(Hotel hotel) throws SQLException {
         Object[] params = {hotel.getId()};
         ResultSet results = dbh.runQuery("SELECT * FROM booking WHERE hotelid=?", params);
@@ -90,11 +117,18 @@ public class BookingController {
     // vistar nýja bókun, þarf að taka inn allar upplýsingar um bókunina, sbr dbh.runQuery
     // ef herbergið er þegar bókað, skilar aðferðin null. Annars skilar hún bókunarhlut sem inniheldur
     // allar réttar upplýsingar.
+
+    /**
+     * Vistar bókun í gagnagrunni
+     * @param booking
+     * @return Booking hlut sem hefur allar réttar upplýsingar. Ef herbergið er nú þegar bókað, skilar aðferðin null
+     * @throws Exception
+     */
     public Booking saveBooking(Booking booking) throws Exception {
         //Object[] param = {booking.getHotelId(), booking.getRoomId(), booking.getStartDate(), booking.getEndDate(), booking.getStartDate(), booking.getEndDate()};
         Object[] param = {1};
-        ResultSet result = dbh.runQuery("SELECT * FROM booking WHERE hotelid = 84 AND roomid = 25 "
-                +"AND ((startdate BETWEEN '2016-05-19' AND '2016-05-25') OR (enddate BETWEEN '2016-05-19' AND '2016-05-25') AND 1 = ?)", param);
+        ResultSet result = dbh.runQuery("SELECT * FROM booking WHERE hotelid = ? AND roomid = ? "
+                +"AND ((startdate BETWEEN ? AND ?) OR (enddate BETWEEN ? AND ?) AND 1 = ?)", param);
         while(result.next()) {
             if(result.getString(1)!=null) {
                 System.out.println("Þetta herbergi er nú þegar bókað");
